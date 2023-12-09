@@ -70,6 +70,8 @@ async function loadTableFromSheet(url) {
     });
     tableBody.appendChild(tr);
 });
+    // Append the table to the container
+    container.appendChild(table);
 }
 
 function parseTSV(tsvData) {
