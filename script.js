@@ -90,16 +90,19 @@ function openPreviewWindow(url) {
 
     modal.innerHTML = `
         <div class="modal-content">
-            <iframe src="${url}" width="100%" height="calc(100% - 60px)"></iframe> <!-- Adjust height for button -->
+            <iframe src="${url}" width="100%" height="calc(100% - 60px)"></iframe>
             <span class="close-modal" onclick="closePreviewWindow()">&times;</span>
-            <button class="view-button" onclick="window.open('${url}', '_blank')">View</button> <!-- View button -->
+            <button class="view-button" onclick="viewButtonClicked('${url}')">View</button>
         </div>`;
 
     modal.style.display = 'block';
 }
 
+function viewButtonClicked(url) {
+    window.open(url, '_blank');
+}
+
 function closePreviewWindow() {
-    event.stopPropagation(); // Add this to stop propagation
     const modal = document.getElementById('preview-modal');
     if (modal) {
         modal.style.display = 'none';
