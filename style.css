@@ -165,16 +165,23 @@ footer {
     border: 1px solid #ccc;
     z-index: 1000;
     display: none; /* Hidden by default */
-    cursor: pointer; /* Change cursor to indicate it's clickable */
-    width: 750px; /* Set a maximum width for the modal */
-    height: 1000px; /* Set a maximum height for the modal */
+    width: 750px; /* Set a fixed width for the modal */
+    height: 1000px; /* Set a fixed height for the modal */
 }
 
 #preview-modal .modal-content {
     position: relative;
-    height: 100%; /* Use the full height of the modal */
+    width: 100%; /* Ensure content uses full width */
+    height: 100%; /* Ensure content uses full height */
     background-color: #fff;
-    cursor: default; /* Default cursor inside the content */
+    cursor: default;
+    padding-bottom: 50px; /* Space for the 'View' button */
+}
+
+#preview-modal iframe {
+    width: 100%;
+    height: calc(100% - 70px); /* Adjusted to leave space for the button */
+    border: none;
 }
 
 .close-modal {
@@ -188,10 +195,12 @@ footer {
 
 .view-button {
     position: absolute;
-    bottom: 10px;
+    bottom: 10px; /* Position at the bottom */
     left: 50%;
     transform: translateX(-50%);
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    background-color: #f0f0f0; /* Optional: Background color for the button */
+    border: 1px solid #ccc; /* Optional: Border for the button */
 }
