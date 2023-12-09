@@ -119,6 +119,22 @@ nav ul li a, nav .submenu li a {
     background-color: #e3eef9;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #6699CC;
+    color: white;
+}
+
 footer {
     background-color: #2d3e50; /* Dark blue background for the footer */
     color: white;
