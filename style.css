@@ -156,4 +156,19 @@ footer {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Add more styling as needed */
+#preview-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1000;
+    display: none; /* Hidden by default */
+}
+
+#preview-modal iframe {
+    width: 600px; /* Adjust as needed */
+    height: 400px; /* Adjust as needed */
+}
