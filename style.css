@@ -179,7 +179,7 @@ footer {
 
 #preview-modal iframe {
     width: 100%; /* iframe takes the full width of the modal content */
-    height: calc(100% - 60px); /* Adjust height to account for the close button */
+    height: 100%; /* Adjust height to account for the close button */
     border: none;
 }
 
