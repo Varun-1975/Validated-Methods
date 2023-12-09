@@ -59,6 +59,13 @@ async function loadTableFromSheet(url) {
                 td.textContent = cell;
                 tr.appendChild(td);
                 lastNonEmptyCell[cellIndex] = td; // This becomes the last non-empty cell
+
+                if (cellIndex === 3) {
+        td.classList.add('preview-link');
+        td.addEventListener('click', function() {
+            openPreviewWindow(cell);
+        });
+    }
             }
         });
         tableBody.appendChild(tr);
@@ -71,4 +78,28 @@ async function loadTableFromSheet(url) {
 function parseTSV(tsvData) {
     // Split the TSV data into lines and then cells using tab as the delimiter
     return tsvData.split('\n').map(row => row.split('\t'));
+}
+
+function openPreviewWindow(link) {
+    // Create the modal container if it doesn't exist
+    let modal = document.getElementById('preview-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'preview-modal';
+        document.body.appendChild(modal);
+    }
+
+    // Set the content of the modal (you can modify this as needed)
+    modal.innerHTML = `<iframe src="${link}" width="100%" height="400px"></iframe>
+                       <button onclick="closePreviewWindow()">Close</button>`;
+
+    // Display the modal
+    modal.style.display = 'block';
+}
+
+function closePreviewWindow() {
+    const modal = document.getElementById('preview-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
