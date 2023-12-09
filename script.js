@@ -54,6 +54,7 @@ async function loadTableFromSheet(url) {
 
         // Check if the current cell is from the URL column (5th column)
         if (cellIndex === 4 && isValidUrl(cell)) {
+            console.log("URL found:", cell);
             let previewLink = document.createElement('a');
             previewLink.href = "#"; // Prevent default link behavior
             previewLink.textContent = "Preview";
@@ -80,6 +81,7 @@ function parseTSV(tsvData) {
 }
 
 function openPreviewWindow(url) {
+    console.log("Opening URL:", url);
     // Create the modal container if it doesn't exist
     let modal = document.getElementById('preview-modal');
     if (!modal) {
