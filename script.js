@@ -24,12 +24,33 @@ function parseTSV(tsv) {
 
 function displayData(dataArray) {
     const container = document.getElementById('data-container');
-    dataArray.forEach(item => {
-        // Create elements for each item and append to container
-        // Example: Create a div for each row
-        const dataDiv = document.createElement('div');
-        dataDiv.className = 'data-row';
-        dataDiv.textContent = JSON.stringify(item); // Format as needed
-        container.appendChild(dataDiv);
+    if (!container) {
+        console.error('Data container element not found');
+        return;
+    }
+
+    // Create a table
+    const table = document.createElement('table');
+    
+    // Optional: Create a header row based on keys from the first data object
+    const headerRow = document.createElement('tr');
+    Object.keys(dataArray[0]).forEach(key => {
+        const headerCell = document.createElement('th');
+        headerCell.textContent = key;
+        headerRow.appendChild(headerCell);
     });
+    table.appendChild(headerRow);
+
+    // Create a row for each data object
+    dataArray.forEach(item => {
+        const row = document.createElement('tr');
+        Object.values(item).forEach(value => {
+            const cell = document.createElement('td');
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+        table.appendChild(row);
+    });
+
+    container.appendChild(table);
 }
