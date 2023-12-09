@@ -47,32 +47,26 @@ async function loadTableFromSheet(url) {
     tableHead.appendChild(headerRow);
 
     // Create table body and handle merged cells
-    data.slice(1).forEach((row, rowIndex) => {
+    data.slice(1).forEach(row => {
         let tr = document.createElement('tr');
         row.forEach((cell, cellIndex) => {
-            if (cell.trim() === '' && lastNonEmptyCell[cellIndex] != null) {
-                // Increment rowspan for the last non-empty cell in this column
-                lastNonEmptyCell[cellIndex].rowSpan += 1;
-            } else {
-                // This cell has content, so create a td and reset the rowspan count
-                let td = document.createElement('td');
-                td.textContent = cell;
-                tr.appendChild(td);
-                lastNonEmptyCell[cellIndex] = td; // This becomes the last non-empty cell
+            let td = document.createElement('td');
 
-                if (cellIndex === 3) {
-        td.classList.add('preview-link');
-        td.addEventListener('click', function() {
-            openPreviewWindow(cell);
-        });
-    }
+            // Check if the current cell is from the URL column (5th column)
+            if (cellIndex === 4 && isValidUrl(cell)) {
+                let a = document.createElement('a');
+                a.href = cell; // Set the URL as the href
+                a.textContent = "View Link"; // Set link text
+                a.target = "_blank"; // Open in new tab/window
+                td.appendChild(a);
+            } else {
+                td.textContent = cell; // For other cells, just display the text
             }
+
+            tr.appendChild(td);
         });
         tableBody.appendChild(tr);
     });
-
-    // Append the table to the container
-    container.appendChild(table);
 }
 
 function parseTSV(tsvData) {
@@ -101,5 +95,14 @@ function closePreviewWindow() {
     const modal = document.getElementById('preview-modal');
     if (modal) {
         modal.style.display = 'none';
+    }
+}
+
+function isValidUrl(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (_) {
+        return false;
     }
 }
