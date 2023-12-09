@@ -88,20 +88,23 @@ function openPreviewWindow(url) {
         document.body.appendChild(modal);
     }
 
+    const encodedUrl = encodeURIComponent(url); // Encode the URL
+
     modal.innerHTML = `
         <div class="modal-content">
             <iframe src="${url}" width="100%" height="calc(100% - 60px)"></iframe>
             <span class="close-modal" onclick="closePreviewWindow()">&times;</span>
-            <button class="view-button" onclick="viewButtonClicked('${url}')">View</button>
+            <button class="view-button" onclick="viewButtonClicked('${encodedUrl}')">View</button>
         </div>`;
 
     modal.style.display = 'block';
 }
 
-function viewButtonClicked(url) {
-    console.log("Opening URL:", url); // Add this to check the URL
+function viewButtonClicked(encodedUrl) {
+    const url = decodeURIComponent(encodedUrl); // Decode the URL
     window.open(url, '_blank');
 }
+
 
 function closePreviewWindow() {
     const modal = document.getElementById('preview-modal');
