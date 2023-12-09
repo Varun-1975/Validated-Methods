@@ -166,8 +166,8 @@ footer {
     z-index: 1000;
     display: none; /* Hidden by default */
     cursor: pointer; /* Change cursor to indicate it's clickable */
-    width: 80%; /* Set a maximum width for the modal */
-    max-height: 80%; /* Set a maximum height for the modal */
+    width: 1000px; /* Set a maximum width for the modal */
+    max-height: 750px; /* Set a maximum height for the modal */
 }
 
 #preview-modal .modal-content {
