@@ -1,0 +1,143 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6; /* Light cool background */
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header {
+    background-color: #2d3e50; /* Dark blue background for the header */
+    color: white;
+    padding: 5px 0;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px 20px;
+}
+
+.logo img {
+    width: 80px;
+    height: auto;
+}
+
+.company-name h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 30px;
+}
+
+.logo, .company-name {
+    margin-right: 20px; 
+}
+
+.header-nav {
+    text-align: center;
+    background-color: #6699CC;
+    padding: 5px 0;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    color: #000;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav .submenu {
+    display: none;
+    position: absolute;
+    background-color: #90BFCA;
+    border: 1px solid #333; 
+    min-width: 200px;
+    white-space: nowrap;
+}
+
+nav .submenu li {
+    padding: 5px 10px;
+    clear: both;
+}
+
+nav .submenu li a {
+    color: white;
+}
+
+nav li:hover > .submenu {
+    display: block;
+}
+
+nav .submenu ul {
+    top: 0;
+    left: 100%;
+}
+
+nav .submenu li a:hover {
+    color: #000;
+}
+
+nav ul li a, nav .submenu li a {
+    transition: color 0.3s;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #e3eef9;
+}
+
+footer {
+    background-color: #2d3e50; /* Dark blue background for the footer */
+    color: white;
+    text-align: center;
+    padding: 1px 0;
+    font-size: 14px;
+}
+
+.footer-contact, .footer-copy {
+    text-align: center;
+}
+
+#data-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #e3eef9; /* Light blue background for the container */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Add more styling as needed */
