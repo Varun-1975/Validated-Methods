@@ -99,6 +99,7 @@ function openPreviewWindow(url) {
 }
 
 function viewButtonClicked(url) {
+    console.log("Opening URL:", url); // Add this to check the URL
     window.open(url, '_blank');
 }
 
