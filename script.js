@@ -48,25 +48,28 @@ async function loadTableFromSheet(url) {
 
     // Create table body and handle merged cells
     data.slice(1).forEach(row => {
-        let tr = document.createElement('tr');
-        row.forEach((cell, cellIndex) => {
-            let td = document.createElement('td');
+    let tr = document.createElement('tr');
+    row.forEach((cell, cellIndex) => {
+        let td = document.createElement('td');
 
-            // Check if the current cell is from the URL column (5th column)
-            if (cellIndex === 4 && isValidUrl(cell)) {
-                let a = document.createElement('a');
-                a.href = cell; // Set the URL as the href
-                a.textContent = "View Link"; // Set link text
-                a.target = "_blank"; // Open in new tab/window
-                td.appendChild(a);
-            } else {
-                td.textContent = cell; // For other cells, just display the text
-            }
+        // Check if the current cell is from the URL column (5th column)
+        if (cellIndex === 4 && isValidUrl(cell)) {
+            let previewLink = document.createElement('a');
+            previewLink.href = "#"; // Prevent default link behavior
+            previewLink.textContent = "Preview";
+            previewLink.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default link behavior
+                openPreviewWindow(cell); // Open the preview window with the URL
+            });
+            td.appendChild(previewLink);
+        } else {
+            td.textContent = cell; // For other cells, just display the text
+        }
 
-            tr.appendChild(td);
-        });
-        tableBody.appendChild(tr);
+        tr.appendChild(td);
     });
+    tableBody.appendChild(tr);
+});
 }
 
 function parseTSV(tsvData) {
@@ -74,7 +77,7 @@ function parseTSV(tsvData) {
     return tsvData.split('\n').map(row => row.split('\t'));
 }
 
-function openPreviewWindow(link) {
+function openPreviewWindow(url) {
     // Create the modal container if it doesn't exist
     let modal = document.getElementById('preview-modal');
     if (!modal) {
@@ -83,8 +86,8 @@ function openPreviewWindow(link) {
         document.body.appendChild(modal);
     }
 
-    // Set the content of the modal (you can modify this as needed)
-    modal.innerHTML = `<iframe src="${link}" width="100%" height="400px"></iframe>
+    // Set the content of the modal
+    modal.innerHTML = `<iframe src="${url}" width="100%" height="400px"></iframe>
                        <button onclick="closePreviewWindow()">Close</button>`;
 
     // Display the modal
