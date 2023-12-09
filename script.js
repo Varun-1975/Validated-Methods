@@ -85,16 +85,14 @@ function openPreviewWindow(url) {
     if (!modal) {
         modal = document.createElement('div');
         modal.id = 'preview-modal';
-        modal.addEventListener('click', function() {
-            window.open(url, '_blank'); // Open the URL in a new tab
-        });
         document.body.appendChild(modal);
     }
 
     modal.innerHTML = `
-        <div class="modal-content" onclick="event.stopPropagation();"> <!-- Prevent click inside from closing -->
-            <iframe src="${url}" width="100%" height="600px"></iframe> <!-- Increased height -->
+        <div class="modal-content">
+            <iframe src="${url}" width="100%" height="calc(100% - 60px)"></iframe> <!-- Adjust height for button -->
             <span class="close-modal" onclick="closePreviewWindow()">&times;</span>
+            <button class="view-button" onclick="window.open('${url}', '_blank')">View</button> <!-- View button -->
         </div>`;
 
     modal.style.display = 'block';
