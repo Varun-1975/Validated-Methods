@@ -81,24 +81,27 @@ function parseTSV(tsvData) {
 }
 
 function openPreviewWindow(url) {
-    console.log("Opening URL:", url);
-    // Create the modal container if it doesn't exist
     let modal = document.getElementById('preview-modal');
     if (!modal) {
         modal = document.createElement('div');
         modal.id = 'preview-modal';
+        modal.addEventListener('click', function() {
+            window.open(url, '_blank'); // Open the URL in a new tab
+        });
         document.body.appendChild(modal);
     }
 
-    // Set the content of the modal
-    modal.innerHTML = `<iframe src="${url}" width="100%" height="400px"></iframe>
-                       <button onclick="closePreviewWindow()">Close</button>`;
+    modal.innerHTML = `
+        <div class="modal-content" onclick="event.stopPropagation();"> <!-- Prevent click inside from closing -->
+            <iframe src="${url}" width="100%" height="600px"></iframe> <!-- Increased height -->
+            <span class="close-modal" onclick="closePreviewWindow()">&times;</span>
+        </div>`;
 
-    // Display the modal
     modal.style.display = 'block';
 }
 
 function closePreviewWindow() {
+    event.stopPropagation(); // Add this to stop propagation
     const modal = document.getElementById('preview-modal');
     if (modal) {
         modal.style.display = 'none';
