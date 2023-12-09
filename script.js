@@ -1,56 +1,74 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTW_hkDjkw6dtvyE2IkMAORsWlmZVUZi4rVr7Rnx5tQU1iVV4M--nbSGh4VXZbF9PCx2X8Q9ZQSgKIC/pub?gid=1992089391&single=true&output=tsv')
-        .then(response => response.text())
-        .then(data => {
-            const dataArray = parseTSV(data);
-            displayData(dataArray);
-        }).catch(error => {
-            console.error('Error fetching data: ', error);
-        });
-});
-
-function parseTSV(tsv) {
-    const lines = tsv.trim().split('\n');
-    const headers = lines.shift().split('\t');
-
-    return lines.map(line => {
-        const data = line.split('\t');
-        return headers.reduce((obj, nextKey, index) => {
-            obj[nextKey] = data[index];
-            return obj;
-        }, {});
-    });
-}
-
-function displayData(dataArray) {
     const container = document.getElementById('data-container');
     if (!container) {
         console.error('Data container element not found');
         return;
     }
 
-    // Create a table
+    const sheetUrl = container.getAttribute('data-sheet-url');
+    if (sheetUrl) {
+        loadTableFromSheet(sheetUrl);
+    } else {
+        console.error('No data-sheet-url found');
+    }
+});
+
+async function loadTableFromSheet(url) {
+    const response = await fetch(url);
+    const tsvData = await response.text();
+    const data = parseTSV(tsvData);
+
+    const container = document.getElementById('data-container');
+    if (!container) {
+        console.error('Data container element not found');
+        return;
+    }
+
+    // Clear existing data
+    container.innerHTML = '';
+
+    // Create table elements
     const table = document.createElement('table');
-    
-    // Optional: Create a header row based on keys from the first data object
-    const headerRow = document.createElement('tr');
-    Object.keys(dataArray[0]).forEach(key => {
-        const headerCell = document.createElement('th');
-        headerCell.textContent = key;
-        headerRow.appendChild(headerCell);
-    });
-    table.appendChild(headerRow);
+    const tableHead = document.createElement('thead');
+    const tableBody = document.createElement('tbody');
+    table.appendChild(tableHead);
+    table.appendChild(tableBody);
 
-    // Create a row for each data object
-    dataArray.forEach(item => {
-        const row = document.createElement('tr');
-        Object.values(item).forEach(value => {
-            const cell = document.createElement('td');
-            cell.textContent = value;
-            row.appendChild(cell);
+    // Initialize an array to keep track of the last non-empty cell for each column
+    let lastNonEmptyCell = Array(data[0].length).fill(null);
+
+    // Create header row
+    let headerRow = document.createElement('tr');
+    data[0].forEach(header => {
+        let th = document.createElement('th');
+        th.textContent = header;
+        headerRow.appendChild(th);
+    });
+    tableHead.appendChild(headerRow);
+
+    // Create table body and handle merged cells
+    data.slice(1).forEach((row, rowIndex) => {
+        let tr = document.createElement('tr');
+        row.forEach((cell, cellIndex) => {
+            if (cell.trim() === '' && lastNonEmptyCell[cellIndex] != null) {
+                // Increment rowspan for the last non-empty cell in this column
+                lastNonEmptyCell[cellIndex].rowSpan += 1;
+            } else {
+                // This cell has content, so create a td and reset the rowspan count
+                let td = document.createElement('td');
+                td.textContent = cell;
+                tr.appendChild(td);
+                lastNonEmptyCell[cellIndex] = td; // This becomes the last non-empty cell
+            }
         });
-        table.appendChild(row);
+        tableBody.appendChild(tr);
     });
 
+    // Append the table to the container
     container.appendChild(table);
+}
+
+function parseTSV(tsvData) {
+    // Split the TSV data into lines and then cells using tab as the delimiter
+    return tsvData.split('\n').map(row => row.split('\t'));
 }
