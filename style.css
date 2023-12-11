@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: #e3eef9;
 }
 
 .wrapper {
@@ -129,8 +130,6 @@ nav ul li a, nav .submenu li a {
     background-color: #e3eef9;
 }
 .table-container {
-    align-items: center;
-    text-align: center;
     padding: 20px;
 }
 
@@ -138,8 +137,7 @@ nav ul li a, nav .submenu li a {
     position: relative;
     z-index: 10;
     padding: 20px;
-    border-left: 1px solid #ccc; /* Optional visual separation */
-    max-height: 90vh;
+    max-height: 85vh;
     overflow: auto; /* Enable scroll if content overflows */
 }
 
@@ -149,6 +147,8 @@ nav ul li a, nav .submenu li a {
 
 table {
     max-width: 100%; /* Prevent the table from exceeding its container */
+    align-items: center;
+    text-align: center;
     border-collapse: collapse;
 }
 
