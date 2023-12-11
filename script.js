@@ -50,30 +50,35 @@ async function loadTableFromSheet(url) {
     data.slice(1).forEach(row => {
     let tr = document.createElement('tr');
     row.forEach((cell, cellIndex) => {
-        let td = document.createElement('td');
+        // Check for merged cells
+        if (cell.trim() === '' && lastNonEmptyCell[cellIndex] != null) {
+            lastNonEmptyCell[cellIndex].rowSpan += 1; // Increment rowspan for merging
+        } else {
+            let td = document.createElement('td');
 
-        // Check if the current cell is from the URL column (4th column)
-        if (cellIndex === 3 && isValidUrl(cell)) {
-            let previewLink = document.createElement('a');
-            previewLink.href = "#"; // Prevent default link behavior
-            previewLink.textContent = "Preview";
-            previewLink.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default link behavior
-                openPreviewWindow(cell); // Open the preview window with the URL
-            });
-            td.appendChild(previewLink);
-        } 
-        else {
-            // For other cells or non-URL content in the 4th column, just display the text
-            td.textContent = cell;
+            // Handling the 4th column for the 'Preview' link
+            if (cellIndex === 3 && isValidUrl(cell)) {
+                let previewLink = document.createElement('a');
+                previewLink.href = "#";
+                previewLink.textContent = "Preview";
+                previewLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    openPreviewWindow(cell);
+                });
+                td.appendChild(previewLink);
+            } else {
+                // For other cells, just display the text
+                td.textContent = cell;
+            }
+
+            // Add class to specific columns for styling (columns 2 and 3)
+            if (cellIndex === 1 || cellIndex === 2) {
+                td.classList.add(`column-${cellIndex + 1}`);
+            }
+
+            tr.appendChild(td);
+            lastNonEmptyCell[cellIndex] = td; // Update the last non-empty cell for this column
         }
-
-        // Add class to specific columns for styling (columns 2 and 3)
-        if (cellIndex === 1 || cellIndex === 2) {
-            td.classList.add(`column-${cellIndex + 1}`);
-        }
-
-        tr.appendChild(td);
     });
     tableBody.appendChild(tr);
 });
