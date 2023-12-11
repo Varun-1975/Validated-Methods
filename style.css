@@ -237,7 +237,7 @@ footer {
 }
 
 #data-container {
-    width: 80%;
+    width: 100%;
     margin: auto;
     padding: 20px;
     background-color: #e3eef9; /* Light blue background for the container */
