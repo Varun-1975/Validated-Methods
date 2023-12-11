@@ -25,6 +25,10 @@ function createTable(data) {
         } else {
             const th = document.createElement('th');
             th.textContent = header;
+            if (index === 0) {
+                th.style.textAlign = 'center'; // Center the text in the header row
+                th.style.fontWeight = 'bold';   // Make the text bold
+            }
             headerRow.appendChild(th);
             previousHeaderCell = th; // Update the last non-empty header cell
         }
@@ -41,8 +45,7 @@ function createTable(data) {
                 // If the cell is empty, increase the colspan of the previous cell
                 if (previousCell) previousCell.colSpan += 1;
             } else {
-                const cellTagName = rowIndex === 0 && cellIndex === 0 ? 'th' : 'td';
-                const cellElement = document.createElement(cellTagName);
+                const td = document.createElement('td');
                 
                 // Set the text content or create an image for the cell
                 if (rowIndex === 0 && isImageLink(cell)) {
@@ -51,13 +54,17 @@ function createTable(data) {
                     img.alt = 'Image';
                     img.style.maxWidth = '100%';
                     img.style.height = 'auto';
-                    cellElement.appendChild(img);
+                    td.appendChild(img);
                 } else {
-                    cellElement.textContent = cell;
+                    td.textContent = cell;
+                    if (cellIndex === 0 && previousCell && previousCell.colSpan === 3) {
+                        td.style.textAlign = 'center'; // Center the text for cells with colspan 3
+                        td.style.fontWeight = 'bold';   // Make the text bold for cells with colspan 3
+                    }
                 }
 
-                tr.appendChild(cellElement); // Append the cell to the row
-                previousCell = cellElement; // Set this cell as the last non-empty cell
+                tr.appendChild(td); // Append the cell to the row
+                previousCell = td; // Set this cell as the last non-empty cell
             }
         });
 
