@@ -45,22 +45,21 @@ async function loadTableFromSheet(url) {
     data.slice(1).forEach((row, rowIndex) => {
         let tr = document.createElement('tr');
         row.forEach((cell, cellIndex) => {
-            // Handling merged cells (e.g., merging A, B, C)
-            if (rowIndex === 1 && cellIndex < 3) {
-                if (cellIndex === 0) {
-                    let td = document.createElement('td');
-                    td.setAttribute('colspan', '3');
-                    if (isValidUrl(cell)) {
-                        let img = document.createElement('img');
-                        img.src = cell;
-                        img.style.maxWidth = '100px'; // Set a max width for the image
-                        td.appendChild(img);
-                    } else {
-                        td.textContent = cell;
-                    }
-                    tr.appendChild(td);
+            if (rowIndex === 1 && cellIndex === 0) {
+                // Handle the merged cell for the image
+                let td = document.createElement('td');
+                td.setAttribute('colspan', '3');
+                if (isValidUrl(cell)) {
+                    let img = document.createElement('img');
+                    img.src = cell;
+                    img.style.maxWidth = '100px'; // Set a max width for the image
+                    td.appendChild(img);
+                } else {
+                    td.textContent = cell;
                 }
-            } else {
+                tr.appendChild(td);
+            } else if (!(rowIndex === 1 && (cellIndex === 1 || cellIndex === 2))) {
+                // Skip adding cells for B and C in the second row
                 let td = document.createElement('td');
                 td.textContent = cell;
                 tr.appendChild(td);
@@ -71,7 +70,6 @@ async function loadTableFromSheet(url) {
 
     container.appendChild(table);
 }
-
 function parseTSV(tsvData) {
     // Split the TSV data into lines and then cells using tab as the delimiter
     return tsvData.split('\n').map(row => row.split('\t'));
