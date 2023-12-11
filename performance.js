@@ -9,50 +9,37 @@ async function fetchTSVData(url) {
 function createTable(data) {
     const table = document.createElement('table');
     let previousCells = [];
-    let mergeCounts = [];
 
     data.forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
         row.forEach((cell, cellIndex) => {
-            let td;
-
-            // Check for the first row to create table header
+            // For the first row, create a header
             if (rowIndex === 0) {
-                td = document.createElement('th');
-                td.textContent = cell;
+                const th = document.createElement('th');
+                th.textContent = cell;
+                tr.appendChild(th);
+                previousCells[cellIndex] = th;
             } else {
-                td = document.createElement('td');
-
-                // Handle vertical merged cells
-                if (cell === '' && previousCells[cellIndex]) {
-                    mergeCounts[cellIndex]++;
-                    previousCells[cellIndex].rowSpan = mergeCounts[cellIndex];
-                    return;
+                // If the cell is not empty or it's the first column, create a new cell
+                if (cell !== '' || cellIndex === 0) {
+                    const td = document.createElement('td');
+                    if (isImageLink(cell)) {
+                        const img = document.createElement('img');
+                        img.src = parseImageLink(cell);
+                        td.appendChild(img);
+                    } else {
+                        td.textContent = cell;
+                    }
+                    tr.appendChild(td);
+                    previousCells[cellIndex] = td;
                 } else {
-                    mergeCounts[cellIndex] = 1;
-                }
-
-                // Check if the cell contains an image link and handle it
-                if (isImageLink(cell)) {
-                    const img = document.createElement('img');
-                    img.src = parseImageLink(cell);
-                    td.appendChild(img);
-                } else {
-                    td.textContent = cell;
+                    // If the cell is empty, increment the rowSpan of the previous cell in the same column
+                    if (previousCells[cellIndex]) {
+                        previousCells[cellIndex].rowSpan = (previousCells[cellIndex].rowSpan || 1) + 1;
+                    }
                 }
             }
-
-            tr.appendChild(td);
-            previousCells[cellIndex] = td;
         });
-
-        // Apply bold formatting if 3 cells are vertically merged
-        previousCells.forEach((cell, index) => {
-            if (mergeCounts[index] === 3) {
-                cell.style.fontWeight = 'bold';
-            }
-        });
-
         table.appendChild(tr);
     });
 
