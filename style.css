@@ -119,8 +119,24 @@ nav ul li a, nav .submenu li a {
     background-color: #e3eef9;
 }
 
+.content-area {
+    display: flex;
+    width: 100%; /* Ensure it spans the full width of the parent */
+}
+
+.table-container, .preview-container {
+    flex: 1; /* Each container takes up equal space */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding and borders in the width calculation */
+}
+
+.preview-container {
+    border-left: 1px solid #ccc; /* Optional visual separation */
+}
+
 table {
     width: 100%;
+    max-width: 100%; /* Prevent the table from exceeding its container */
     border-collapse: collapse;
 }
 
@@ -154,32 +170,6 @@ th {
 .column-2, .column-3 {
     max-width: 150px; /* Adjust the max-width as needed */
     word-wrap: break-word; /* Enable word wrapping */
-}
-
-.content-area {
-    display: flex;
-    width: 100%; /* Ensure it spans the full width */
-}
-
-.table-container, .preview-container {
-    box-sizing: border-box; /* Include padding and borders in the element's total width and height */
-}
-
-.table-container {
-    width:40%
-    padding: 20px;
-}
-
-.preview-container {
-    width: 60%
-    padding: 20px;
-    border-left: 1px solid #ccc; /* Visual separation, if needed */
-    background-color: #e3eef9;
-}
-
-.preview-content {
-    position: relative;
-    height: calc(100vh - 100px); /* Adjust the height as needed */
 }
 
 .view-button {
