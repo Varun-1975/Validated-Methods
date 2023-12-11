@@ -12,6 +12,12 @@ html, body {
     height: 100%;
 }
 
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #e3eef9;
+}
+
 header {
     background-color: #2d3e50; /* Dark blue background for the header */
     color: white;
@@ -113,12 +119,6 @@ nav ul li a, nav .submenu li a {
     transition: color 0.3s;
 }
 
-.main-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #e3eef9;
-}
-
 .content-area {
     display: flex;
     width: 100%; /* Full width */
@@ -135,6 +135,7 @@ nav ul li a, nav .submenu li a {
 }
 
 .preview-container {
+    position: relative;
     padding: 20px;
     border-left: 1px solid #ccc; /* Optional visual separation */
     height: 100%; /* Set height to 100% of its parent */
