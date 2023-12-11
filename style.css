@@ -162,6 +162,13 @@ th {
     word-wrap: break-word; /* Enable word wrapping */
 }
 
+@media screen and (max-width: 600px) {
+    th, td {
+        width: 100%; /* Each column takes full width on small screens */
+        display: block; /* Stack the cells vertically */
+    }
+}
+
 footer {
     background-color: #2d3e50; /* Dark blue background for the footer */
     color: white;
