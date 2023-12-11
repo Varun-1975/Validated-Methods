@@ -130,6 +130,12 @@ th, td {
     text-align: left;
 }
 
+/* Example fixed widths for each column */
+th:nth-child(1), td:nth-child(1) { width: 10%; } /* Adjust as per your requirement */
+th:nth-child(2), td:nth-child(2) { width: 35%; }
+th:nth-child(3), td:nth-child(3) { width: 35%; }
+th:nth-child(4), td:nth-child(4) { width: 20%; }
+
 th {
     background-color: #6699CC;
     color: white;
