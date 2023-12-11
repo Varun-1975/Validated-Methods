@@ -91,29 +91,21 @@ function parseTSV(tsvData) {
     return tsvData.split('\n').map(row => row.split('\t'));
 }
 
-function openPreviewWindow(url) {
-    let modal = document.getElementById('preview-modal');
-    if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'preview-modal';
-        document.body.appendChild(modal);
-    }
 
+function openPreviewWindow(url) {
+    const previewContainer = document.getElementById('preview-container');
     const encodedUrl = encodeURIComponent(url); // Encode the URL
 
-    modal.innerHTML = `
-        <div class="modal-content">
-            <iframe src="${url}" width="100%" height="calc(100% - 60px)"></iframe>
-            <span class="close-modal" onclick="closePreviewWindow()">&times;</span>
-            <button class="view-button" onclick="viewButtonClicked('${encodedUrl}')">View</button>
+    previewContainer.innerHTML = `
+        <div class="preview-content">
+            <iframe src="${url}" width="100%" height="100%"></iframe>
+            <button class="view-button" onclick="viewButtonClicked('${encodedUrl}')">View in New Tab</button>
         </div>`;
-
-    modal.style.display = 'block';
 }
 
 function viewButtonClicked(encodedUrl) {
     const url = decodeURIComponent(encodedUrl); // Decode the URL
-    window.open(url, '_blank');
+    window.open(url, '_blank'); // Open the URL in a new tab
 }
 
 
