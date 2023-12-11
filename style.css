@@ -120,8 +120,6 @@ nav ul li a, nav .submenu li a {
 
 .content-area {
     display: flex;
-    align-items: center;
-    text-align: center;
     width: 100%;
 }
 
@@ -132,6 +130,8 @@ nav ul li a, nav .submenu li a {
     background-color: #e3eef9;
 }
 .table-container {
+    align-items: center;
+    text-align: center;
     padding: 20px;
 }
 
@@ -149,6 +149,8 @@ nav ul li a, nav .submenu li a {
 
 table {
     max-width: 100%; /* Prevent the table from exceeding its container */
+    align-items: center;
+    text-align: center;
     border-collapse: collapse;
 }
 
@@ -217,6 +219,8 @@ footer {
 
 #data-container {
     width: 80%;
+    align-items: center;
+    text-align: center;
     margin: auto;
     padding: 20px;
     background-color: #e3eef9; /* Light blue background for the container */
