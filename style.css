@@ -165,8 +165,8 @@ footer {
     border: 1px solid #ccc;
     z-index: 1000;
     display: none; /* Hidden by default */
-    width: 375px; /* Set a fixed width for the modal */
-    height: 500px; /* Set a fixed height for the modal */
+    width: 50%px; /* Set a fixed width for the modal */
+    height: 80%px; /* Set a fixed height for the modal */
 }
 
 #preview-modal .modal-content {
