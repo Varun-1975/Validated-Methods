@@ -176,6 +176,23 @@ th {
     border-left: 1px solid #ccc; /* Optional, for visual separation */
 }
 
+.preview-content {
+    position: relative;
+    height: calc(100vh - 100px); /* Adjust the height as needed */
+}
+
+.view-button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f0f0f0; /* Optional: Background color for the button */
+    border: 1px solid #ccc; /* Optional: Border for the button */
+}
+
 @media screen and (max-width: 600px) {
     th, td {
         width: 100%; /* Each column takes full width on small screens */
