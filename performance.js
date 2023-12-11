@@ -8,44 +8,53 @@ async function fetchTSVData(url) {
 // Function to create a table with the TSV data
 function createTable(data) {
     const table = document.createElement('table');
-    let previousCell = null;
-    let mergeCount = 0;
+    let previousCells = [];
+    let mergeCounts = [];
 
     data.forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
         row.forEach((cell, cellIndex) => {
-            // Handling horizontal merged cells
-            if (cell === previousCell) {
-                mergeCount++;
-                return;
-            } else if (mergeCount > 0) {
-                previousCell.colSpan = mergeCount + 1;
-                mergeCount = 0;
-            }
+            let td;
 
-            const td = document.createElement('td');
-            // Check if the cell contains an image link and handle it
-            if (isImageLink(cell)) {
-                const img = document.createElement('img');
-                img.src = parseImageLink(cell);
-                td.appendChild(img);
-            } else {
+            // Check for the first row to create table header
+            if (rowIndex === 0) {
+                td = document.createElement('th');
                 td.textContent = cell;
+            } else {
+                td = document.createElement('td');
+
+                // Handle vertical merged cells
+                if (cell === '' && previousCells[cellIndex]) {
+                    mergeCounts[cellIndex]++;
+                    previousCells[cellIndex].rowSpan = mergeCounts[cellIndex];
+                    return;
+                } else {
+                    mergeCounts[cellIndex] = 1;
+                }
+
+                // Check if the cell contains an image link and handle it
+                if (isImageLink(cell)) {
+                    const img = document.createElement('img');
+                    img.src = parseImageLink(cell);
+                    td.appendChild(img);
+                } else {
+                    td.textContent = cell;
+                }
             }
 
             tr.appendChild(td);
-            previousCell = td;
+            previousCells[cellIndex] = td;
         });
-        // Reset for next row
-        previousCell = null;
-        mergeCount = 0;
+
+        // Apply bold formatting if 3 cells are vertically merged
+        previousCells.forEach((cell, index) => {
+            if (mergeCounts[index] === 3) {
+                cell.style.fontWeight = 'bold';
+            }
+        });
+
         table.appendChild(tr);
     });
-
-    // Final check for the last cell in the table
-    if (mergeCount > 0) {
-        previousCell.colSpan = mergeCount + 1;
-    }
 
     return table;
 }
@@ -57,14 +66,19 @@ function isImageLink(str) {
 
 // Function to parse the provided image link format
 function parseImageLink(link) {
-    // Adjust the parsing logic based on the provided link format
     const baseUrl = link.split('?')[0];
     return baseUrl;
 }
 
-// Example usage
-const tsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTi_0g4fsZHLownRxEBfnrAGnzIHRLNOkqVN_ibgrUHDxhXD5WdL3LhlHnrEn0PnGivZjIvjQQ2UL7i/pub?gid=0&single=true&output=tsv';
-fetchTSVData(tsvUrl).then(data => {
-    const table = createTable(data);
-    document.body.appendChild(table);
-});
+// Function to initialize the data fetching and table creation
+function initializeTable() {
+    const container = document.getElementById('data-container');
+    const tsvUrl = container.getAttribute('data-sheet-url');
+    fetchTSVData(tsvUrl).then(data => {
+        const table = createTable(data);
+        container.appendChild(table);
+    });
+}
+
+// Call the initialize function when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initializeTable);
