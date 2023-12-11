@@ -19,16 +19,13 @@ function createTable(data) {
     const headerRow = document.createElement('tr');
     let previousHeaderCell = null; // Keep track of the previous non-empty header cell for merging
     data[0].forEach((header, index) => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        th.style.textAlign = 'center'; // Center the text in the header row
+        th.style.fontWeight = 'bold';   // Make the text bold
         if (index > 0 && header.trim() === '' && previousHeaderCell) {
-            // Increase the colspan for merged header cells
-            previousHeaderCell.colSpan += 1;
+            previousHeaderCell.colSpan += 1; // Increase the colspan for merged header cells
         } else {
-            const th = document.createElement('th');
-            th.textContent = header;
-            if (index === 0) {
-                th.style.textAlign = 'center'; // Center the text in the header row
-                th.style.fontWeight = 'bold';   // Make the text bold
-            }
             headerRow.appendChild(th);
             previousHeaderCell = th; // Update the last non-empty header cell
         }
@@ -41,30 +38,31 @@ function createTable(data) {
         let previousCell = null; // To keep track of the last non-empty cell for merging
 
         row.forEach((cell, cellIndex) => {
-            if (cell.trim() === '') {
-                // If the cell is empty, increase the colspan of the previous cell
-                if (previousCell) previousCell.colSpan += 1;
+            const td = document.createElement('td');
+            
+            // Set the text content or create an image for the cell
+            if (rowIndex === 0 && isImageLink(cell)) {
+                const img = document.createElement('img');
+                img.src = cell;
+                img.alt = 'Image';
+                img.style.maxWidth = '100%';
+                img.style.height = 'auto';
+                td.appendChild(img);
             } else {
-                const td = document.createElement('td');
-                
-                // Set the text content or create an image for the cell
-                if (rowIndex === 0 && isImageLink(cell)) {
-                    const img = document.createElement('img');
-                    img.src = cell;
-                    img.alt = 'Image';
-                    img.style.maxWidth = '100%';
-                    img.style.height = 'auto';
-                    td.appendChild(img);
-                } else {
-                    td.textContent = cell;
-                    if (cellIndex === 0 && previousCell && previousCell.colSpan === 3) {
-                        td.style.textAlign = 'center'; // Center the text for cells with colspan 3
-                        td.style.fontWeight = 'bold';   // Make the text bold for cells with colspan 3
+                td.textContent = cell;
+            }
+
+            // Apply styles and merging logic
+            if (cell.trim() === '') {
+                if (previousCell) {
+                    previousCell.colSpan += 1;
+                    if (previousCell.colSpan === 3) {
+                        applyStylesToCell(previousCell); // Apply styles if colspan is 3
                     }
                 }
-
-                tr.appendChild(td); // Append the cell to the row
-                previousCell = td; // Set this cell as the last non-empty cell
+            } else {
+                tr.appendChild(td);
+                previousCell = td;
             }
         });
 
@@ -72,6 +70,12 @@ function createTable(data) {
     });
 
     return table;
+}
+
+// Function to apply styles to a cell
+function applyStylesToCell(cell) {
+    cell.style.textAlign = 'center'; // Center the text
+    cell.style.fontWeight = 'bold';   // Make the text bold
 }
 
 // Function to initialize the data fetching and table creation
