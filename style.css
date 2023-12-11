@@ -123,6 +123,16 @@ nav ul li a, nav .submenu li a {
     width: 100%;
 }
 
+.table-area, .preview-area {
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.container-header {
+    text-align: center;
+    margin: 0 0 20px; /* Add some space below the header */
+}
+
 .table-container, .preview-container {
     flex: 1; /* Each container takes up equal space */
     box-sizing: border-box;
@@ -221,43 +231,6 @@ footer {
     padding: 20px;
     background-color: #e3eef9; /* Light blue background for the container */
     border-radius: 10px;
-}
-
-#preview-modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid #ccc;
-    z-index: 1000;
-    display: none; /* Hidden by default */
-    width: 50%; /* Set a fixed width for the modal */
-    height: 80%; /* Set a fixed height for the modal */
-}
-
-#preview-modal .modal-content {
-    position: relative;
-    width: 100%; /* Ensure content uses full width */
-    height: 100%; /* Ensure content uses full height */
-    background-color: #fff;
-    cursor: default;
-    padding-bottom: 50px; /* Space for the 'View' button */
-}
-
-#preview-modal iframe {
-    width: 100%;
-    height: calc(100% - 70px); /* Adjusted to leave space for the button */
-    border: none;
-}
-
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 25px;
-    color: #000;
-    cursor: pointer;
 }
 
 .view-button {
