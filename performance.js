@@ -2,68 +2,61 @@
 async function fetchTSVData(url) {
     const response = await fetch(url);
     const text = await response.text();
-    return text.split('\n').map(row => row.split('\t'));
+    const rows = text.split('\n').map(row => row.split('\t'));
+    return rows;
 }
 
-// Function to check and parse image link
-function checkAndParseImage(cell, td) {
-    if (isImageLink(cell)) {
-        const img = document.createElement('img');
-        img.src = parseImageLink(cell);
-        img.style.maxWidth = '100px'; // or any other size
-        td.appendChild(img);
-    } else {
-        td.textContent = cell;
+// Helper function to create a cell and append it to the row
+function createCell(row, tagName, text, colSpan, isBold) {
+    const cell = document.createElement(tagName);
+    cell.textContent = text;
+    if (colSpan) {
+        cell.setAttribute('colspan', colSpan);
     }
+    if (isBold) {
+        cell.style.fontWeight = 'bold';
+    }
+    row.appendChild(cell);
 }
 
 // Function to create a table with the TSV data
 function createTable(data) {
     const table = document.createElement('table');
-    table.classList.add('data-table'); // Add class for styling
-
     data.forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
         row.forEach((cell, cellIndex) => {
-            // Create header row
+            // Skip cells based on specified merge patterns
+            if (rowIndex > 0 && cellIndex > 0 && rowIndex !== 10 && rowIndex !== 16) continue;
+
+            let tagName = 'td';
+            let colSpan = null;
+            let isBold = false;
+
+            // Handle specific merge patterns and styles
             if (rowIndex === 0 && cellIndex === 0) {
-                const th = document.createElement('th');
-                th.setAttribute('colspan', '3');
-                th.textContent = cell;
-                tr.appendChild(th);
+                // Merged title cell A1:C1
+                colSpan = 3;
+                isBold = true;
             } else if (rowIndex === 1 && cellIndex === 0) {
-                const th = document.createElement('th');
-                th.setAttribute('colspan', '3');
-                checkAndParseImage(cell, th);
-                tr.appendChild(th);
-            } else if (rowIndex >= 2) {
-                if (cellIndex === 0) {
-                    const td = document.createElement('td');
-                    td.textContent = cell;
-                    td.style.fontWeight = 'bold'; // Make it bold as per spec
-                    tr.appendChild(td);
-                } else if (cellIndex === 1) {
-                    // Merging B-C columns horizontally
-                    const td = document.createElement('td');
-                    td.setAttribute('colspan', '2');
-                    checkAndParseImage(cell, td);
-                    tr.appendChild(td);
-                }
-                // Skip cellIndex 2 since it's merged with cellIndex 1
+                // Merged image cell A2:C2
+                colSpan = 3;
+            } else if (rowIndex === 10 || rowIndex === 16) {
+                // Merged bold cells A10:C10 and A16:C16
+                tagName = rowIndex === 10 ? 'th' : 'td'; // A10 is a header
+                colSpan = 3;
+                isBold = true;
+            } else if (cellIndex === 0) {
+                // Column A cells should be bold
+                isBold = true;
+            } else if (cellIndex === 1) {
+                // Cells B3:C3 to B21:C21 are merged
+                colSpan = 2;
             }
+
+            // Create cell with appropriate tag, colspan, and bold style
+            createCell(tr, tagName, cell, colSpan, isBold);
         });
         table.appendChild(tr);
-    });
-
-    // Apply styles for merged cells containing bold text
-    const boldMergedCells = [10, 16]; // Rows which have merged cells with bold text
-    boldMergedCells.forEach(rowIndex => {
-        const row = table.rows[rowIndex];
-        if (row) {
-            const cell = row.cells[0];
-            cell.setAttribute('colspan', '3');
-            cell.style.fontWeight = 'bold';
-        }
     });
 
     return table;
@@ -85,8 +78,10 @@ function initializeTable() {
     const container = document.getElementById('data-container');
     const tsvUrl = container.getAttribute('data-sheet-url');
     fetchTSVData(tsvUrl).then(data => {
+        // Clear previous content
+        container.innerHTML = '';
+        // Create and append the new table
         const table = createTable(data);
-        container.innerHTML = ''; // Clear previous content
         container.appendChild(table);
     });
 }
