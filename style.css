@@ -130,9 +130,16 @@ nav ul li a, nav .submenu li a {
     flex-direction: column;
 }
 
-.container-header {
+.table-area .container-header, .preview-area .container-header {
     text-align: center;
-    margin: 20px 0 20px; /* Add some space below the header */
+    margin: 20px 0 20px; /* Space below the header */
+}
+
+.preview-container {
+    overflow: auto; /* Enable scrolling if content overflows */
+    padding: 20px;
+    max-height: 200vh; /* Set a maximum height */
+    flex-grow: 1; /* Allows flexible growth of the container */
 }
 
 .table-container, .preview-container {
