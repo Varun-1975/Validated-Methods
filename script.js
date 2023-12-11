@@ -64,6 +64,8 @@ async function loadTableFromSheet(url) {
                 previewLink.addEventListener('click', function(event) {
                     event.preventDefault();
                     openPreviewWindow(cell);
+                    // Scroll to the top of the page
+                    window.scrollTo(0, 0);
                 });
                 td.appendChild(previewLink);
             } else {
@@ -101,9 +103,6 @@ function openPreviewWindow(url) {
             <iframe src="${url}" width="100%" height="100%"></iframe>
             <button class="view-button" onclick="viewButtonClicked('${encodedUrl}')">View in New Tab</button>
         </div>`;
-
-    // Scroll to the top of the page
-    window.scrollTo(0, 0);
 }
 
 function viewButtonClicked(encodedUrl) {
