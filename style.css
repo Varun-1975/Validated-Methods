@@ -121,17 +121,28 @@ nav ul li a, nav .submenu li a {
 
 .content-area {
     display: flex;
-    width: 100%; /* Ensure it spans the full width of the parent */
+    width: 100%; /* Full width */
+    height: 100%; /* Adjust to take full height of the parent */
 }
 
 .table-container, .preview-container {
     flex: 1; /* Each container takes up equal space */
-    padding: 20px;
     box-sizing: border-box; /* Include padding and borders in the width calculation */
 }
 
+.table-container {
+    padding: 20px;
+}
+
 .preview-container {
+    padding: 20px;
     border-left: 1px solid #ccc; /* Optional visual separation */
+    height: 100%; /* Set height to 100% of its parent */
+    overflow: auto; /* Enable scroll if content overflows */
+}
+
+.preview-content {
+    height: 100%; /* Set height to fill the preview container */
 }
 
 table {
