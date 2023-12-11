@@ -24,18 +24,13 @@ async function loadTableFromSheet(url) {
         return;
     }
 
-    // Clear existing data
     container.innerHTML = '';
 
-    // Create table elements
     const table = document.createElement('table');
     const tableHead = document.createElement('thead');
     const tableBody = document.createElement('tbody');
     table.appendChild(tableHead);
     table.appendChild(tableBody);
-
-    // Initialize an array to keep track of the last non-empty cell for each column
-    let lastNonEmptyCell = Array(data[0].length).fill(null);
 
     // Create header row
     let headerRow = document.createElement('tr');
@@ -46,32 +41,34 @@ async function loadTableFromSheet(url) {
     });
     tableHead.appendChild(headerRow);
 
-    // Create table body and handle merged cells
-    data.slice(1).forEach(row => {
-    let tr = document.createElement('tr');
-    row.forEach((cell, cellIndex) => {
-        let td = document.createElement('td');
-
-        // Check if the current cell is from the URL column (5th column)
-        if (cellIndex === 4 && isValidUrl(cell)) {
-            console.log("URL found:", cell);
-            let previewLink = document.createElement('a');
-            previewLink.href = "#"; // Prevent default link behavior
-            previewLink.textContent = "Preview";
-            previewLink.addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default link behavior
-                openPreviewWindow(cell); // Open the preview window with the URL
-            });
-            td.appendChild(previewLink);
-        } else {
-            td.textContent = cell; // For other cells, just display the text
-        }
-
-        tr.appendChild(td);
+    // Create table body
+    data.slice(1).forEach((row, rowIndex) => {
+        let tr = document.createElement('tr');
+        row.forEach((cell, cellIndex) => {
+            // Handling merged cells (e.g., merging A, B, C)
+            if (rowIndex === 1 && cellIndex < 3) {
+                if (cellIndex === 0) {
+                    let td = document.createElement('td');
+                    td.setAttribute('colspan', '3');
+                    if (isValidUrl(cell)) {
+                        let img = document.createElement('img');
+                        img.src = cell;
+                        img.style.maxWidth = '100px'; // Set a max width for the image
+                        td.appendChild(img);
+                    } else {
+                        td.textContent = cell;
+                    }
+                    tr.appendChild(td);
+                }
+            } else {
+                let td = document.createElement('td');
+                td.textContent = cell;
+                tr.appendChild(td);
+            }
+        });
+        tableBody.appendChild(tr);
     });
-    tableBody.appendChild(tr);
-});
-    // Append the table to the container
+
     container.appendChild(table);
 }
 
