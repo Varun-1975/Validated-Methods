@@ -162,17 +162,19 @@ th {
 }
 
 .table-container, .preview-container {
-    width: 50%;
     box-sizing: border-box; /* Include padding and borders in the element's total width and height */
 }
 
 .table-container {
+    width:40%
     padding: 20px;
 }
 
 .preview-container {
+    width: 60%
     padding: 20px;
     border-left: 1px solid #ccc; /* Visual separation, if needed */
+    background-color: #e3eef9;
 }
 
 .preview-content {
