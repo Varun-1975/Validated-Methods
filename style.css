@@ -162,6 +162,20 @@ th {
     word-wrap: break-word; /* Enable word wrapping */
 }
 
+.content-area {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table-container, .preview-container {
+    width: 50%;
+}
+
+.preview-container {
+    padding: 20px;
+    border-left: 1px solid #ccc; /* Optional, for visual separation */
+}
+
 @media screen and (max-width: 600px) {
     th, td {
         width: 100%; /* Each column takes full width on small screens */
