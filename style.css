@@ -129,7 +129,7 @@ nav ul li a, nav .submenu li a {
 }
 
 preview-area{
-    max-height: 200vh;
+    height: 100%;
 }
 
 .container-header {
