@@ -22,7 +22,8 @@ function createTable(data) {
         const th = document.createElement('th');
         th.textContent = header;
         th.style.textAlign = 'center'; // Center the text in the header row
-        th.style.fontWeight = 'bold';   // Make the text bold
+        th.style.fontWeight = 'bold';   // Make the header text bold
+
         if (index > 0 && header.trim() === '' && previousHeaderCell) {
             previousHeaderCell.colSpan += 1; // Increase the colspan for merged header cells
         } else {
@@ -50,6 +51,10 @@ function createTable(data) {
                 td.appendChild(img);
             } else {
                 td.textContent = cell;
+                // Make the first column bold
+                if (cellIndex === 0) {
+                    td.style.fontWeight = 'bold';
+                }
             }
 
             // Apply styles and merging logic
@@ -77,7 +82,6 @@ function applyStylesToCell(cell) {
     cell.style.textAlign = 'center'; // Center the text
     cell.style.fontWeight = 'bold';   // Make the text bold
 }
-
 // Function to initialize the data fetching and table creation
 function initializeTable() {
     const tsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTi_0g4fsZHLownRxEBfnrAGnzIHRLNOkqVN_ibgrUHDxhXD5WdL3LhlHnrEn0PnGivZjIvjQQ2UL7i/pub?gid=0&single=true&output=tsv'; // Replace with the actual URL to your TSV data
