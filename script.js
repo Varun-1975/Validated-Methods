@@ -47,24 +47,13 @@ async function loadTableFromSheet(url) {
     tableHead.appendChild(headerRow);
 
     // Create table body and handle merged cells
-    data.slice(1).forEach((row, rowIndex) => {
+    data.slice(1).forEach(row => {
     let tr = document.createElement('tr');
     row.forEach((cell, cellIndex) => {
-        if (cell.trim() === '' && lastNonEmptyCell[cellIndex] != null) {
-            // Increment rowspan for the last non-empty cell in this column
-            lastNonEmptyCell[cellIndex].rowSpan += 1;
-        } else {
-            let td = document.createElement('td');
-            td.textContent = cell;
+        let td = document.createElement('td');
 
-            // Add class to specific columns for styling (columns 2 and 3)
-            if (cellIndex === 1 || cellIndex === 2) {
-                td.classList.add(`column-${cellIndex + 1}`);
-            }
-
-        // Check if the current cell is from the URL column (5th column)
+        // Check if the current cell is from the URL column (4th column)
         if (cellIndex === 3 && isValidUrl(cell)) {
-            console.log("URL found:", cell);
             let previewLink = document.createElement('a');
             previewLink.href = "#"; // Prevent default link behavior
             previewLink.textContent = "Preview";
@@ -75,12 +64,16 @@ async function loadTableFromSheet(url) {
             td.appendChild(previewLink);
         } 
         else {
+            // For other cells or non-URL content in the 4th column, just display the text
             td.textContent = cell;
         }
 
-        tr.appendChild(td);
-        lastNonEmptyCell[cellIndex] = td;
+        // Add class to specific columns for styling (columns 2 and 3)
+        if (cellIndex === 1 || cellIndex === 2) {
+            td.classList.add(`column-${cellIndex + 1}`);
         }
+
+        tr.appendChild(td);
     });
     tableBody.appendChild(tr);
 });
