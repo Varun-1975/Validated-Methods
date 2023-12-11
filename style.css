@@ -139,6 +139,11 @@ th {
     text-align: center; /* Center the text for the title cell */
 }
 
+.data-table td:first-child, .data-table th:first-child {
+    width: 100px; /* Set the desired width here */
+    font-weight: bold; /* Ensures all first column cells are bold */
+}
+
 .data-table img {
     display: block;
     margin: auto;
