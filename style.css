@@ -196,7 +196,7 @@ th {
 .data-table img {
     display: block;
     margin: auto;
-    width: 200px; /* Match the width set in JavaScript */
+    width: 400px; /* Match the width set in JavaScript */
     height: auto;
 }
 
