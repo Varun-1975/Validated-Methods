@@ -134,7 +134,6 @@ nav ul li a, nav .submenu li a {
     position: relative;
     padding: 20px;
     border-left: 1px solid #ccc; /* Optional visual separation */
-    height: 100%; /* Set height to 100% of its parent */
     overflow: auto; /* Enable scroll if content overflows */
 }
 
