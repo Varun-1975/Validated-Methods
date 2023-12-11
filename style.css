@@ -126,10 +126,8 @@ nav ul li a, nav .submenu li a {
 .table-area, .preview-area {
     flex: 1;
     box-sizing: border-box;
-}
-
-preview-area{
-    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .container-header {
@@ -151,10 +149,11 @@ preview-area{
 
 .preview-container {
     position: relative;
-    max-height: 200vh;
     z-index: 10;
     padding: 20px;
-    overflow: auto; /* Enable scroll if content overflows */
+    flex-grow: 1; /* Allows the preview container to grow and occupy available space */
+    overflow: auto; /* Enable scrolling if content overflows */
+    padding: 20px;
 }
 
 .preview-content {
