@@ -9,7 +9,14 @@ async function fetchTSVData(url) {
 // Helper function to create a cell and append it to the row
 function createCell(row, tagName, text, colSpan, isBold) {
     const cell = document.createElement(tagName);
-    cell.textContent = text;
+    if (isImageLink(text)) {
+        const img = document.createElement('img');
+        img.src = parseImageLink(text);
+        img.style.maxWidth = '100px'; // Adjust as necessary
+        cell.appendChild(img);
+    } else {
+        cell.textContent = text;
+    }
     if (colSpan) {
         cell.setAttribute('colspan', colSpan);
     }
@@ -25,36 +32,35 @@ function createTable(data) {
     data.forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
         row.forEach((cell, cellIndex) => {
-            // Skip cells based on specified merge patterns
-            if (rowIndex > 0 && cellIndex > 0 && rowIndex !== 10 && rowIndex !== 16) continue;
-
             let tagName = 'td';
             let colSpan = null;
             let isBold = false;
 
-            // Handle specific merge patterns and styles
+            // Determine if the current cell should be created based on specific merge patterns
             if (rowIndex === 0 && cellIndex === 0) {
                 // Merged title cell A1:C1
                 colSpan = 3;
                 isBold = true;
+                createCell(tr, 'th', cell, colSpan, isBold);
             } else if (rowIndex === 1 && cellIndex === 0) {
                 // Merged image cell A2:C2
                 colSpan = 3;
-            } else if (rowIndex === 10 || rowIndex === 16) {
-                // Merged bold cells A10:C10 and A16:C16
-                tagName = rowIndex === 10 ? 'th' : 'td'; // A10 is a header
-                colSpan = 3;
-                isBold = true;
-            } else if (cellIndex === 0) {
+                createCell(tr, tagName, cell, colSpan, isBold);
+            } else if (rowIndex >= 2 && cellIndex === 0) {
                 // Column A cells should be bold
                 isBold = true;
-            } else if (cellIndex === 1) {
-                // Cells B3:C3 to B21:C21 are merged
+                createCell(tr, tagName, cell, colSpan, isBold);
+            } else if (rowIndex >= 2 && cellIndex === 1) {
+                // Cells B3:C3 to B21:C21 are merged horizontally
                 colSpan = 2;
+                createCell(tr, tagName, cell, colSpan, isBold);
+            } else if ((rowIndex === 10 || rowIndex === 16) && cellIndex === 0) {
+                // Merged bold cells A10:C10 and A16:C16
+                colSpan = 3;
+                isBold = true;
+                createCell(tr, 'th', cell, colSpan, isBold);
             }
-
-            // Create cell with appropriate tag, colspan, and bold style
-            createCell(tr, tagName, cell, colSpan, isBold);
+            // Cells in column C are skipped because they are merged with column B
         });
         table.appendChild(tr);
     });
