@@ -36,7 +36,7 @@ function createTable(data) {
 // Function to initialize the data fetching and table creation
 function initializeTable() {
     // The URL should point to your TSV data
-    const tsvUrl = 'https://example.com/path/to/your/data.tsv'; // Replace with the actual URL
+    const tsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTi_0g4fsZHLownRxEBfnrAGnzIHRLNOkqVN_ibgrUHDxhXD5WdL3LhlHnrEn0PnGivZjIvjQQ2UL7i/pub?gid=0&single=true&output=tsv'; // Replace with the actual URL
 
     fetchTSVData(tsvUrl).then(data => {
         const container = document.getElementById('data-container');
