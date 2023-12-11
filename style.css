@@ -146,6 +146,11 @@ th {
     height: auto;
 }
 
+.column-2, .column-3 {
+    max-width: 150px; /* Adjust the max-width as needed */
+    word-wrap: break-word; /* Enable word wrapping */
+}
+
 footer {
     background-color: #2d3e50; /* Dark blue background for the footer */
     color: white;
