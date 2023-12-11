@@ -134,7 +134,7 @@ nav ul li a, nav .submenu li a {
     position: relative;
     padding: 20px;
     border-left: 1px solid #ccc; /* Optional visual separation */
-    max-height: 100vh;
+    max-height: 90vh;
     overflow: auto; /* Enable scroll if content overflows */
 }
 
@@ -143,7 +143,6 @@ nav ul li a, nav .submenu li a {
 }
 
 table {
-    width: 100%;
     max-width: 100%; /* Prevent the table from exceeding its container */
     border-collapse: collapse;
 }
