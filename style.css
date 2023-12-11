@@ -158,16 +158,21 @@ th {
 
 .content-area {
     display: flex;
-    justify-content: space-between;
+    width: 100%; /* Ensure it spans the full width */
 }
 
 .table-container, .preview-container {
     width: 50%;
+    box-sizing: border-box; /* Include padding and borders in the element's total width and height */
+}
+
+.table-container {
+    padding: 20px;
 }
 
 .preview-container {
     padding: 20px;
-    border-left: 1px solid #ccc; /* Optional, for visual separation */
+    border-left: 1px solid #ccc; /* Visual separation, if needed */
 }
 
 .preview-content {
