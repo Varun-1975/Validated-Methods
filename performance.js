@@ -2,7 +2,6 @@
 async function fetchTSVData(url) {
     const response = await fetch(url);
     const text = await response.text();
-    // Split the text into rows, then split each row into columns
     return text.split('\n').map(row => row.split('\t'));
 }
 
@@ -11,16 +10,21 @@ function createTable(data) {
     const table = document.createElement('table');
     table.className = 'data-table'; // Add a class for CSS styling
 
-    // Iterate over each row of data
-    data.forEach((row, rowIndex) => {
+    data.forEach((row) => {
         const tr = document.createElement('tr'); // Create a new table row
+        let previousCell = null; // To keep track of the last non-empty cell
 
-        // Iterate over each cell in the row
-        row.forEach((cell, cellIndex) => {
-            const cellElement = document.createElement(rowIndex === 0 ? 'th' : 'td');
-            // Set the text content of the cell
-            cellElement.textContent = cell;
-            tr.appendChild(cellElement); // Append the cell to the row
+        row.forEach((cell) => {
+            if (cell.trim() === '') {
+                // If the cell is empty, increase the colspan of the previous cell
+                if (previousCell) previousCell.colSpan += 1;
+            } else {
+                // If the cell is not empty, create a new cell
+                const td = document.createElement('td');
+                td.textContent = cell;
+                tr.appendChild(td); // Append the cell to the row
+                previousCell = td; // Set this cell as the last non-empty cell
+            }
         });
 
         table.appendChild(tr); // Append the row to the table
@@ -32,7 +36,7 @@ function createTable(data) {
 // Function to initialize the data fetching and table creation
 function initializeTable() {
     // The URL should point to your TSV data
-    const tsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTi_0g4fsZHLownRxEBfnrAGnzIHRLNOkqVN_ibgrUHDxhXD5WdL3LhlHnrEn0PnGivZjIvjQQ2UL7i/pub?gid=0&single=true&output=tsv'; // Replace with the actual URL
+    const tsvUrl = 'https://example.com/path/to/your/data.tsv'; // Replace with the actual URL
 
     fetchTSVData(tsvUrl).then(data => {
         const container = document.getElementById('data-container');
