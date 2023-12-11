@@ -47,15 +47,20 @@ async function loadTableFromSheet(url) {
     tableHead.appendChild(headerRow);
 
     // Create table body and handle merged cells
-    data.slice(1).forEach(row => {
+    data.slice(1).forEach((row, rowIndex) => {
     let tr = document.createElement('tr');
     row.forEach((cell, cellIndex) => {
-    let td = document.createElement('td');
+        if (cell.trim() === '' && lastNonEmptyCell[cellIndex] != null) {
+            // Increment rowspan for the last non-empty cell in this column
+            lastNonEmptyCell[cellIndex].rowSpan += 1;
+        } else {
+            let td = document.createElement('td');
+            td.textContent = cell;
 
-    // Add class to specific columns for styling
-    if (cellIndex === 1 || cellIndex === 2) { // Assuming columns 2 and 3 are indexed 1 and 2
-        td.classList.add(`column-${cellIndex + 1}`);
-    }
+            // Add class to specific columns for styling (columns 2 and 3)
+            if (cellIndex === 1 || cellIndex === 2) {
+                td.classList.add(`column-${cellIndex + 1}`);
+            }
 
         // Check if the current cell is from the URL column (5th column)
         if (cellIndex === 3 && isValidUrl(cell)) {
@@ -68,17 +73,13 @@ async function loadTableFromSheet(url) {
                 openPreviewWindow(cell); // Open the preview window with the URL
             });
             td.appendChild(previewLink);
-        data.slice(1).forEach((row, rowIndex) => {
-    let tr = document.createElement('tr');
-    row.forEach((cell, cellIndex) => {
-        if (cell.trim() === '' && lastNonEmptyCell[cellIndex] != null) {
-            // Increment rowspan for the last non-empty cell in this column
-            lastNonEmptyCell[cellIndex].rowSpan += 1;
-        } else {
-            let td = document.createElement('td');
+        } 
+        else {
             td.textContent = cell;
-            tr.appendChild(td);
-            lastNonEmptyCell[cellIndex] = td; // This becomes the last non-empty cell
+        }
+
+        tr.appendChild(td);
+        lastNonEmptyCell[cellIndex] = td;
         }
     });
     tableBody.appendChild(tr);
