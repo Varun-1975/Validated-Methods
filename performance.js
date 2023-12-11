@@ -5,61 +5,68 @@ async function fetchTSVData(url) {
     return text.split('\n').map(row => row.split('\t'));
 }
 
+// Function to check and parse image link
+function checkAndParseImage(cell, td) {
+    if (isImageLink(cell)) {
+        const img = document.createElement('img');
+        img.src = parseImageLink(cell);
+        img.style.maxWidth = '100px'; // or any other size
+        td.appendChild(img);
+    } else {
+        td.textContent = cell;
+    }
+}
+
 // Function to create a table with the TSV data
 function createTable(data) {
     const table = document.createElement('table');
+    table.classList.add('data-table'); // Add class for styling
 
     data.forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
-
         row.forEach((cell, cellIndex) => {
-            // Skip cells that are supposed to be merged with previous cells
-            if (shouldSkipCell(rowIndex, cellIndex)) {
-                return;
+            // Create header row
+            if (rowIndex === 0 && cellIndex === 0) {
+                const th = document.createElement('th');
+                th.setAttribute('colspan', '3');
+                th.textContent = cell;
+                tr.appendChild(th);
+            } else if (rowIndex === 1 && cellIndex === 0) {
+                const th = document.createElement('th');
+                th.setAttribute('colspan', '3');
+                checkAndParseImage(cell, th);
+                tr.appendChild(th);
+            } else if (rowIndex >= 2) {
+                if (cellIndex === 0) {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    td.style.fontWeight = 'bold'; // Make it bold as per spec
+                    tr.appendChild(td);
+                } else if (cellIndex === 1) {
+                    // Merging B-C columns horizontally
+                    const td = document.createElement('td');
+                    td.setAttribute('colspan', '2');
+                    checkAndParseImage(cell, td);
+                    tr.appendChild(td);
+                }
+                // Skip cellIndex 2 since it's merged with cellIndex 1
             }
-
-            let cellElement = document.createElement(rowIndex === 0 ? 'th' : 'td');
-            if (rowIndex === 0 || rowIndex === 2) {
-                cellElement.colSpan = 3; // Merging A1-C1 and A2-C2
-            } else if ((rowIndex >= 3 && rowIndex <= 9) || (rowIndex >= 11 && rowIndex <= 14) || (rowIndex >= 17 && rowIndex <= 21)) {
-                cellElement.colSpan = 2; // Merging B-C for specified rows
-            }
-
-            // Handle special formatting for certain cells
-            if ((rowIndex === 10 || rowIndex === 16) && cellIndex === 0) {
-                cellElement.colSpan = 3; // Merging A-C for specific rows
-                cellElement.style.fontWeight = 'bold'; // Making it bold
-            } else if (cellIndex === 0) {
-                cellElement.style.fontWeight = 'bold'; // Making A column bold except merged cells
-            }
-
-            // Insert the image if the cell contains an image link
-            if (isImageLink(cell)) {
-                const img = document.createElement('img');
-                img.src = parseImageLink(cell);
-                cellElement.appendChild(img);
-            } else {
-                cellElement.textContent = cell;
-            }
-
-            tr.appendChild(cellElement);
         });
-
         table.appendChild(tr);
     });
 
-    return table;
-}
+    // Apply styles for merged cells containing bold text
+    const boldMergedCells = [10, 16]; // Rows which have merged cells with bold text
+    boldMergedCells.forEach(rowIndex => {
+        const row = table.rows[rowIndex];
+        if (row) {
+            const cell = row.cells[0];
+            cell.setAttribute('colspan', '3');
+            cell.style.fontWeight = 'bold';
+        }
+    });
 
-// Helper function to determine if a cell should be skipped due to horizontal merging
-function shouldSkipCell(rowIndex, cellIndex) {
-    // Define the cells that are merged and should be skipped
-    const skipCells = {
-        3: [1, 2], 4: [1, 2], 5: [1, 2], 6: [1, 2], 7: [1, 2], 8: [1], 9: [1],
-        11: [1, 2], 12: [1, 2], 13: [1, 2], 14: [1, 2],
-        17: [1, 2], 18: [1, 2], 19: [1, 2], 20: [1, 2], 21: [1, 2]
-    };
-    return skipCells[rowIndex] && skipCells[rowIndex].includes(cellIndex);
+    return table;
 }
 
 // Helper function to check if a string is an image link
@@ -79,6 +86,7 @@ function initializeTable() {
     const tsvUrl = container.getAttribute('data-sheet-url');
     fetchTSVData(tsvUrl).then(data => {
         const table = createTable(data);
+        container.innerHTML = ''; // Clear previous content
         container.appendChild(table);
     });
 }
