@@ -83,6 +83,7 @@ nav ul li {
 
 nav .submenu {
     display: none;
+    z-index: 20;
     position: absolute;
     background-color: #90BFCA;
     border: 1px solid #333; 
@@ -125,13 +126,17 @@ nav ul li a, nav .submenu li a {
     flex: 1; /* Each container takes up equal space */
     box-sizing: border-box;
     padding: 20px;
+    background-color: #e3eef9;
 }
 .table-container {
+    align-items: center;
+    text-align: center;
     padding: 20px;
 }
 
 .preview-container {
     position: relative;
+    z-index: 10;
     padding: 20px;
     border-left: 1px solid #ccc; /* Optional visual separation */
     max-height: 90vh;
