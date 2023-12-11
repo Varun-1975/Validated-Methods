@@ -12,7 +12,10 @@ function createCell(row, tagName, text, colSpan, isBold) {
     if (isImageLink(text)) {
         const img = document.createElement('img');
         img.src = parseImageLink(text);
-        img.style.maxWidth = '100px'; // Adjust as necessary
+        img.style.width = '200px'; // Set the desired width
+        img.style.height = 'auto'; // Height will be set automatically
+        img.style.display = 'block'; // Use block display to apply margin
+        img.style.margin = 'auto'; // Center the image within the cell
         cell.appendChild(img);
     } else {
         cell.textContent = text;
@@ -22,6 +25,9 @@ function createCell(row, tagName, text, colSpan, isBold) {
     }
     if (isBold) {
         cell.style.fontWeight = 'bold';
+    }
+    if (tagName === 'th') {
+        cell.style.textAlign = 'center'; // Center the text in header cells
     }
     row.appendChild(cell);
 }
