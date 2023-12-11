@@ -64,15 +64,8 @@ async function loadTableFromSheet(url) {
             });
             td.appendChild(previewLink);
         } 
-        if (cell.trim() === '' && lastNonEmptyCell[cellIndex] != null) {
-                // Increment rowspan for the last non-empty cell in this column
-                lastNonEmptyCell[cellIndex].rowSpan += 1;
-            }
         else {
-            let td = document.createElement('td');
-                td.textContent = cell;
-                tr.appendChild(td);
-                lastNonEmptyCell[cellIndex] = td; // This becomes the last non-empty cell
+            td.textContent = cell;
         }
 
         tr.appendChild(td);
