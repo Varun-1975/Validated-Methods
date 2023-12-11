@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Data Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <div class="header-top">
+        <div class="logo">
+            <img src="Raptim Logo.png" alt="Raptim Research" style="width: 110px; height: auto;">
+        </div>
+        <div class="company-name">
+            <h1>Raptim Research Pvt. Ltd.</h1>
+        </div>
+    </div>
+    <nav class="header-nav">
+        <ul>
+            <li><a href="#home">Home</a>
+                <ul class="submenu">
+                    <li><a href="#sub1">Subsection 1</a></li>
+                    <li><a href="#sub2">Subsection 2</a>
+                        <ul class="submenu">
+                            <li><a href="#sub2-1">Subsection 2-1</a></li>
+                            <li><a href="#sub2-2">Subsection 2-2</a></li>
+                            <li><a href="#sub2-3">Subsection 2-3</a></li>
+                            <li><a href="#sub2-4">Subsection 2-4</a></li>
+                            <li><a href="#sub2-5">Subsection 2-5</a></li>
+                            <li><a href="#sub2-6">Subsection 2-6</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+        <div id="data-container" data-sheet-url="https://docs.google.com/spreadsheets/d/e/2PACX-1vTi_0g4fsZHLownRxEBfnrAGnzIHRLNOkqVN_ibgrUHDxhXD5WdL3LhlHnrEn0PnGivZjIvjQQ2UL7i/pub?gid=0&single=true&output=tsv">
+            <!-- Data from Google Sheets will be displayed here -->
+        </div>
+
+        <footer>
+            <div class="footer-contact">
+        <p>Email: contact@example.com</p>
+    </div>
+    <div class="footer-copy">
+        <p>&copy; 2023 Raptim Research Pvt. Ltd.</p>
+    </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
