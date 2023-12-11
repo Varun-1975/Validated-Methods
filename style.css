@@ -126,10 +126,8 @@ nav ul li a, nav .submenu li a {
 .table-area, .preview-area {
     flex: 1;
     box-sizing: border-box;
-}
-
-.preview-area{
-    max-height: 200vh;
+    max-height: 200vh; /* Apply max-height to the entire preview area */
+    overflow: auto; /* Enable scrolling if content overflows */
 }
 
 .container-header {
