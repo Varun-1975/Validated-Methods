@@ -94,10 +94,12 @@ function applyStylesToCell(cell) {
     cell.style.fontWeight = 'bold';   // Make the text bold
 }
 // Function to initialize the data fetching and table creation
-function initializeTable(url) {
-    
-    fetchTSVData(url).then(data => {
-        const container = document.getElementById('data-container');
+function initializeTable() {
+    // Retrieve the URL from the data-sheet-url attribute of the data-container element
+    const container = document.getElementById('data-container');
+    const tsvUrl = container.getAttribute('data-sheet-url');
+
+    fetchTSVData(tsvUrl).then(data => {
         container.innerHTML = ''; // Clear any existing content
         const table = createTable(data);
         container.appendChild(table); // Append the new table to the container
