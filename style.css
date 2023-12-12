@@ -222,6 +222,20 @@ th {
         width: 100%; /* Each column takes full width on small screens */
         display: block; /* Stack the cells vertically */
     }
+
+    .preview-container {
+    overflow: auto; /* Enable scrolling if content overflows */
+    padding: 20px;
+    max-height: 100vh; /* Set a maximum height */
+    flex-grow: 1; /* Allows flexible growth of the container */
+    }
+}
+
+button {
+    padding: 0 0 20px;
+    position: absolute;
+    text-align: center;
+    
 }
 
 footer {
