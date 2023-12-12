@@ -10,6 +10,17 @@ function isImageLink(str) {
     return str.startsWith('https://cdn.discordapp.com/attachments/');
 }
 
+// Function to check if a string contains an HTML image tag
+function isImageTag(str) {
+    return str.includes('<img');
+}
+
+// Function to extract the image URL from an HTML image tag
+function extractImageUrl(imageTag) {
+    const matches = imageTag.match(/src="([^"]+)"/);
+    return matches ? matches[1] : '';
+}
+
 // Function to create a table with the TSV data
 function createTable(data) {
     const table = document.createElement('table');
@@ -41,17 +52,17 @@ function createTable(data) {
         row.forEach((cell, cellIndex) => {
             const td = document.createElement('td');
             
-            // Set the text content or create an image for the cell
-            if (rowIndex === 0 && isImageLink(cell)) {
+            // Check for image tag and extract the image URL
+            if (isImageTag(cell)) {
+                const imageUrl = extractImageUrl(cell);
                 const img = document.createElement('img');
-                img.src = cell;
+                img.src = imageUrl;
                 img.alt = 'Image';
                 img.style.maxWidth = '100%';
                 img.style.height = 'auto';
                 td.appendChild(img);
             } else {
                 td.textContent = cell;
-                // Make the first column bold
                 if (cellIndex === 0) {
                     td.style.fontWeight = 'bold';
                 }
