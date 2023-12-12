@@ -47,17 +47,17 @@ function createTable(data) {
     // Process the rest of the data starting from the second row
     data.slice(1).forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
-        let previousCell = null; // To keep track of the last non-empty cell for merging
+        let previousCell = null;
 
         row.forEach((cell, cellIndex) => {
             const td = document.createElement('td');
-            
-            // Check for image tag and extract the image URL
-            if (isImageTag(cell)) {
-                const imageUrl = extractImageUrl(cell);
-                const img = document.createElement('img');
-                img.src = imageUrl;
-                img.alt = 'Image';
+
+            // Check if the cell contains an img tag
+            if (cell.includes('<img')) {
+                // Create a div to hold the HTML content
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = cell.trim();
+                const img = tempDiv.firstChild;
                 img.style.maxWidth = '100%';
                 img.style.height = 'auto';
                 td.appendChild(img);
