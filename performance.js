@@ -10,6 +10,17 @@ function isImageLink(str) {
     return str.startsWith('https://cdn.discordapp.com/attachments/');
 }
 
+// Function to check if a string contains an HTML image tag
+function isImageTag(str) {
+    return str.includes('<img');
+}
+
+// Function to extract the image URL from an HTML image tag
+function extractImageUrl(imageTag) {
+    const matches = imageTag.match(/src="([^"]+)"/);
+    return matches ? matches[1] : '';
+}
+
 // Function to create a table with the TSV data
 function createTable(data) {
     const table = document.createElement('table');
@@ -36,22 +47,22 @@ function createTable(data) {
     // Process the rest of the data starting from the second row
     data.slice(1).forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
-        let previousCell = null; // To keep track of the last non-empty cell for merging
+        let previousCell = null;
 
         row.forEach((cell, cellIndex) => {
             const td = document.createElement('td');
-            
-            // Set the text content or create an image for the cell
-            if (rowIndex === 0 && isImageLink(cell)) {
-                const img = document.createElement('img');
-                img.src = cell;
-                img.alt = 'Image';
+
+            // Check if the cell contains an img tag
+            if (cell.includes('<img')) {
+                // Create a div to hold the HTML content
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = cell.trim();
+                const img = tempDiv.firstChild;
                 img.style.maxWidth = '100%';
                 img.style.height = 'auto';
                 td.appendChild(img);
             } else {
                 td.textContent = cell;
-                // Make the first column bold
                 if (cellIndex === 0) {
                     td.style.fontWeight = 'bold';
                 }
@@ -83,10 +94,9 @@ function applyStylesToCell(cell) {
     cell.style.fontWeight = 'bold';   // Make the text bold
 }
 // Function to initialize the data fetching and table creation
-function initializeTable() {
-    const tsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTi_0g4fsZHLownRxEBfnrAGnzIHRLNOkqVN_ibgrUHDxhXD5WdL3LhlHnrEn0PnGivZjIvjQQ2UL7i/pub?gid=0&single=true&output=tsv'; // Replace with the actual URL to your TSV data
-
-    fetchTSVData(tsvUrl).then(data => {
+function initializeTable(url) {
+    
+    fetchTSVData(url).then(data => {
         const container = document.getElementById('data-container');
         container.innerHTML = ''; // Clear any existing content
         const table = createTable(data);
