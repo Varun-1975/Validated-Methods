@@ -10,17 +10,6 @@ function isImageLink(str) {
     return str.startsWith('https://cdn.discordapp.com/attachments/');
 }
 
-// Function to check if a string contains an HTML image tag
-function isImageTag(str) {
-    return str.includes('<img');
-}
-
-// Function to extract the image URL from an HTML image tag
-function extractImageUrl(imageTag) {
-    const matches = imageTag.match(/src="([^"]+)"/);
-    return matches ? matches[1] : '';
-}
-
 // Function to create a table with the TSV data
 function createTable(data) {
     const table = document.createElement('table');
@@ -47,22 +36,22 @@ function createTable(data) {
     // Process the rest of the data starting from the second row
     data.slice(1).forEach((row, rowIndex) => {
         const tr = document.createElement('tr');
-        let previousCell = null;
+        let previousCell = null; // To keep track of the last non-empty cell for merging
 
         row.forEach((cell, cellIndex) => {
             const td = document.createElement('td');
-
-            // Check if the cell contains an img tag
-            if (cell.includes('<img')) {
-                // Create a div to hold the HTML content
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = cell.trim();
-                const img = tempDiv.firstChild;
+            
+            // Set the text content or create an image for the cell
+            if (rowIndex === 0 && isImageLink(cell)) {
+                const img = document.createElement('img');
+                img.src = cell;
+                img.alt = 'Image';
                 img.style.maxWidth = '100%';
                 img.style.height = 'auto';
                 td.appendChild(img);
             } else {
                 td.textContent = cell;
+                // Make the first column bold
                 if (cellIndex === 0) {
                     td.style.fontWeight = 'bold';
                 }
