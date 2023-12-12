@@ -231,6 +231,15 @@ th {
     }
 }
 
+/* Centering the button container */
+.button-container {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center; /* Centers the button vertically (if needed) */
+    height: 100%; /* You can adjust this as per your layout */
+}
+
+/* Style for the download button */
 .download-button {
     background-color: #4CAF50; /* Green background */
     border: none;
