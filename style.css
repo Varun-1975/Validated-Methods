@@ -231,11 +231,27 @@ th {
     }
 }
 
-button {
-    padding: 0 0 20px;
-    position: absolute;
+.download-button {
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    color: white;
+    padding: 15px 32px;
     text-align: center;
-    
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.download-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.download-button a {
+    color: white; /* Ensuring the link inside the button is also white */
+    text-decoration: none; /* Removing underline from the link */
 }
 
 footer {
