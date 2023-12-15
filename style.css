@@ -156,8 +156,9 @@ nav ul li a, nav .submenu li a {
     position: relative;
     z-index: 10;
     padding: 20px;
-    height: 300px;
+    max-height: 300vh;
     overflow: auto;
+    flex-grow: 1;
 }
 
 .table-container {
