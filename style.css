@@ -1,3 +1,4 @@
+/* General Styles */
 html, body {
     height: 100%;
     margin: 0;
@@ -11,101 +12,101 @@ html, body {
     height: 100vh;
 }
 
-.main-content, .table-container, .preview-container {
-    flex: 1;
-    padding: 20px;
-    background-color: #e3eef9;
-}
-
-header, footer {
-    background-color: #2d3e50;
+/* Header Styles */
+header {
+    background-color: #2d3e50; /* Dark blue background */
     color: white;
     padding: 5px 0;
-    text-align: center;
 }
 
-.header-top, .logo, .company-name, header nav ul, .button-container {
+.header-top {
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-
-.logo img, .company-name h1 {
-    margin: 0 20px;
+    padding: 5px 20px;
 }
 
 .logo img {
-    width: 80px;
-    height: auto;
+    width: 80px; /* Set in HTML inline styles: 110px */
 }
 
 .company-name h1 {
+    margin: 0;
     font-size: 30px;
 }
 
-.header-nav, .table-area, .preview-area {
+.logo, .company-name {
+    margin-right: 20px;
+}
+
+.header-nav {
+    background-color: #6699CC;
     padding: 5px 0;
 }
 
-nav ul, .submenu, ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
 header nav ul {
-    display: inline-flex;
-    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 header nav ul li {
     margin: 0 15px;
 }
 
-header nav ul li a, nav .submenu li a {
+header nav ul li a {
     color: white;
     text-decoration: none;
     transition: color 0.3s;
 }
 
-header nav ul li a:hover, nav .submenu li a:hover {
+header nav ul li a:hover {
     color: #000;
 }
 
-nav ul li {
-    position: relative;
-}
-
+/* Dropdown Menu Styles */
 nav .submenu {
     display: none;
     position: absolute;
     background-color: #90BFCA;
-    border: 1px solid #333; 
+    border: 1px solid #333;
     min-width: 200px;
-    white-space: nowrap;
+    z-index: 20;
 }
 
 nav li:hover > .submenu {
     display: block;
 }
 
+/* Content Area Styles */
 .content-area {
     display: flex;
     flex-wrap: nowrap;
 }
 
 .table-area, .preview-area {
+    flex: 1;
+    display: none; /* Both initially hidden, shown by JS */
     overflow: auto;
     max-height: 80vh;
-    flex: 1;
     box-sizing: border-box;
+    height: 100%;
 }
 
-.table-area.active, .preview-area.active {
-    display: block;
-    width: 50%;
+.active {
+    display: flex; /* Display when active */
 }
 
+.table-container, .preview-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #e3eef9;
+    overflow: auto;
+    height: 100%;
+}
+
+/* Table Styles */
 table {
     max-width: 100%;
     margin: auto;
@@ -116,23 +117,12 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
-    height: 10px;
+    height: 20px;
 }
 
 th {
     background-color: #6699CC;
-}
-
-.data-table td:first-child, .data-table th:first-child {
-    width: 350px;
-    font-weight: bold;
-}
-
-.data-table img {
-    display: block;
-    margin: auto;
-    width: 400px;
-    height: auto;
+    color: white;
 }
 
 .column-2, .column-3 {
@@ -140,67 +130,49 @@ th {
     word-wrap: break-word;
 }
 
+/* Button Styles */
+.view-button, .close-preview {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
 .view-button {
+    background-color: #f0f0f0;
+    color: black;
     position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #f0f0f0; /* Optional: Background color for the button */
-    border: 1px solid #ccc; /* Optional: Border for the button */
 }
 
 .close-preview {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 10px;
-  background-color: #f44336; /* or any color of your choice */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #f44336;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
+/* Footer Styles */
+footer {
+    background-color: #2d3e50; /* Dark blue background */
+    color: white;
+    text-align: center;
+    padding: 1px 0;
+    font-size: 14px;
+}
+
+/* Responsive Styles */
 @media screen and (max-width: 600px) {
     th, td {
-        width: 100%;
         display: block;
+        width: 100%;
     }
 
     .preview-container {
-        overflow: auto;
-        padding: 20px;
         max-height: 100vh;
-        flex-grow: 1;
     }
-}
-
-.download-button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.download-button:hover {
-    background-color: #45a049;
-}
-
-.download-button a {
-    color: white;
-    text-decoration: none;
-}
-
-.footer-contact, .footer-copy {
-    text-align: center;
 }
