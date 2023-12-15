@@ -11,22 +11,27 @@ html, body {
     height: 100vh;
 }
 
-.main-content {
+.main-content, .table-container, .preview-container {
     flex: 1;
     padding: 20px;
+    background-color: #e3eef9;
 }
 
-header {
-    background-color: #2d3e50; /* Dark blue background for the header */
+header, footer {
+    background-color: #2d3e50;
     color: white;
     padding: 5px 0;
+    text-align: center;
 }
 
-.header-top {
+.header-top, .logo, .company-name, header nav ul, .button-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 5px 20px;
+    justify-content: center;
+}
+
+.logo img, .company-name h1 {
+    margin: 0 20px;
 }
 
 .logo img {
@@ -35,27 +40,21 @@ header {
 }
 
 .company-name h1 {
-    margin: 0;
-    padding: 0;
     font-size: 30px;
 }
 
-.logo, .company-name {
-    margin-right: 20px; 
-}
-
-.header-nav {
-    text-align: center;
-    background-color: #6699CC;
+.header-nav, .table-area, .preview-area {
     padding: 5px 0;
 }
 
-header nav ul {
+nav ul, .submenu, ul {
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+header nav ul {
     display: inline-flex;
-    justify-content: center;
     width: 100%;
 }
 
@@ -63,19 +62,14 @@ header nav ul li {
     margin: 0 15px;
 }
 
-header nav ul li a {
+header nav ul li a, nav .submenu li a {
     color: white;
     text-decoration: none;
+    transition: color 0.3s;
 }
 
-header nav ul li a:hover {
+header nav ul li a:hover, nav .submenu li a:hover {
     color: #000;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 nav ul li {
@@ -84,7 +78,6 @@ nav ul li {
 
 nav .submenu {
     display: none;
-    z-index: 20;
     position: absolute;
     background-color: #90BFCA;
     border: 1px solid #333; 
@@ -92,178 +85,99 @@ nav .submenu {
     white-space: nowrap;
 }
 
-nav .submenu li {
-    padding: 5px 10px;
-    clear: both;
-}
-
-nav .submenu li a {
-    color: white;
-}
-
 nav li:hover > .submenu {
     display: block;
 }
 
-nav .submenu ul {
-    top: 0;
-    left: 100%;
-}
-
-nav .submenu li a:hover {
-    color: #000;
-}
-
-nav ul li a, nav .submenu li a {
-    transition: color 0.3s;
-}
-
 .content-area {
     display: flex;
-    flex-direction: row; /* Adjust direction as needed */
-    width: 100%;
+    flex-wrap: nowrap;
 }
 
 .table-area, .preview-area {
-    flex: 1; /* Allows each area to grow */
     overflow: auto;
-    transition: flex 0.3s ease; /* Smooth transition for resizing */
-    max-height: 80vh; /* Adjust this value as needed */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-}
-
-.table-area {
-    width: 100%;
-}
-
-.preview-area {
-    display: none;
-    width: 0; /* Initially no width */
-    flex: 0; /* Do not grow or shrink */
-}
-
-.table-area .container-header, .preview-area .container-header {
-    text-align: center;
-    margin: 20px 0 20px; /* Space below the header */
-}
-
-.table-container, .preview-container {
-    flex: 1; /* Each container takes up equal space */
-    box-sizing: border-box;
-    padding: 20px;
-    background-color: #e3eef9;
-}
-
-.preview-container {
-    position: relative;
-    z-index: 10;
-    padding: 20px;
     max-height: 80vh;
-    overflow: auto;
-    flex-grow: 1;
-}
-
-.table-container {
-    margin: auto;
-    height: 600px;
-    padding: 20px;
-}
-
-.preview-area.active, .table-area.active {
     flex: 1;
-    width: 50%;
+    box-sizing: border-box;
+}
+
+.table-area.active, .preview-area.active {
     display: block;
+    width: 50%;
 }
 
 table {
-    max-width: 100%; /* Prevent the table from exceeding its container */
+    max-width: 100%;
     margin: auto;
     border-collapse: collapse;
 }
 
 th, td {
     border: 1px solid #ddd;
+    padding: 8px;
     text-align: left;
     height: 10px;
 }
 
 th {
     background-color: #6699CC;
-    color: white;
-}
-
-.table-title {
-    text-align: center; /* Center the text for the title cell */
 }
 
 .data-table td:first-child, .data-table th:first-child {
-    width: 350px; /* Set the desired width here */
-    font-weight: bold; /* Ensures all first column cells are bold */
+    width: 350px;
+    font-weight: bold;
 }
 
 .data-table img {
     display: block;
     margin: auto;
-    width: 400px; /* Match the width set in JavaScript */
+    width: 400px;
     height: auto;
 }
 
 .column-2, .column-3 {
-    max-width: 150px; /* Adjust the max-width as needed */
-    word-wrap: break-word; /* Enable word wrapping */
+    max-width: 150px;
+    word-wrap: break-word;
+}
+
+.view-button, .close-preview {
+    position: absolute;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
 }
 
 .view-button {
-    position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #f0f0f0; /* Optional: Background color for the button */
-    border: 1px solid #ccc; /* Optional: Border for the button */
+    background-color: #f0f0f0;
 }
 
 .close-preview {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 10px;
-  background-color: #f44336; /* or any color of your choice */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    top: 10px;
+    right: 10px;
+    background-color: #f44336;
+    color: white;
+    border-radius: 5px;
 }
 
 @media screen and (max-width: 600px) {
     th, td {
-        width: 100%; /* Each column takes full width on small screens */
-        display: block; /* Stack the cells vertically */
+        width: 100%;
+        display: block;
     }
 
     .preview-container {
-    overflow: auto; /* Enable scrolling if content overflows */
-    padding: 20px;
-    max-height: 100vh; /* Set a maximum height */
-    flex-grow: 1; /* Allows flexible growth of the container */
+        overflow: auto;
+        padding: 20px;
+        max-height: 100vh;
+        flex-grow: 1;
     }
 }
 
-/* Centering the button container */
-.button-container {
-    display: flex;
-    justify-content: center; /* Centers the button horizontally */
-    align-items: center; /* Centers the button vertically (if needed) */
-    height: 100%; /* You can adjust this as per your layout */
-}
-
-/* Style for the download button */
 .download-button {
-    background-color: #4CAF50; /* Green background */
+    background-color: #4CAF50;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -277,44 +191,14 @@ th {
 }
 
 .download-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
 }
 
 .download-button a {
-    color: white; /* Ensuring the link inside the button is also white */
-    text-decoration: none; /* Removing underline from the link */
-}
-
-
-
-footer {
-    background-color: #2d3e50; /* Dark blue background for the footer */
     color: white;
-    text-align: center;
-    padding: 1px 0;
-    font-size: 14px;
+    text-decoration: none;
 }
 
 .footer-contact, .footer-copy {
     text-align: center;
-}
-
-#data-container {
-    width: 100%;
-    margin: auto;
-    padding: 20px;
-    background-color: #e3eef9; /* Light blue background for the container */
-    border-radius: 10px;
-}
-
-.view-button {
-    position: absolute;
-    bottom: 10px; /* Position at the bottom */
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #f0f0f0; /* Optional: Background color for the button */
-    border: 1px solid #ccc; /* Optional: Border for the button */
 }
