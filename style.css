@@ -140,26 +140,28 @@ th {
     word-wrap: break-word;
 }
 
-.view-button, .close-preview {
-    position: absolute;
-    padding: 10px 20px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-}
-
 .view-button {
+    position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #f0f0f0;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f0f0f0; /* Optional: Background color for the button */
+    border: 1px solid #ccc; /* Optional: Border for the button */
 }
 
 .close-preview {
-    top: 10px;
-    right: 10px;
-    background-color: #f44336;
-    color: white;
-    border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background-color: #f44336; /* or any color of your choice */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
