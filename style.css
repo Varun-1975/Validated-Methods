@@ -121,6 +121,7 @@ nav ul li a, nav .submenu li a {
 .content-area {
     display: flex;
     flex-wrap: nowrap;
+    height: 100%
 }
 
 .table-area, .preview-area {
@@ -175,6 +176,10 @@ nav ul li a, nav .submenu li a {
     flex: 1;
     width: 50%;
     display: block;
+}
+
+.preview-content {
+    height: 100%
 }
 
 table {
