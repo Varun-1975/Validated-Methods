@@ -145,8 +145,7 @@ nav ul li a, nav .submenu li a {
     position: relative;
     z-index: 10;
     padding: 20px;
-    flex-grow: 1; /* Allows the preview container to grow and occupy available space */
-    padding: 20px;
+    overflow: auto;
 }
 
 .table-container, .preview-container {
@@ -163,7 +162,7 @@ nav ul li a, nav .submenu li a {
 }
 
 .preview-area.active, .table-area.active {
-  width: 50%;
+    width: 50%;
 }
 
 /* Adjust the height of table cells */
@@ -222,7 +221,7 @@ th {
     border: 1px solid #ccc; /* Optional: Border for the button */
 }
 
-#close-preview {
+.close-preview {
   position: absolute;
   top: 10px;
   right: 10px;
