@@ -124,6 +124,8 @@ nav ul li a, nav .submenu li a {
 }
 
 .table-area, .preview-area {
+    overflow: auto;
+    max-height: 500px; /* Adjust this value as needed */
     flex: 1;
     box-sizing: border-box;
     display: flex;
@@ -136,14 +138,15 @@ nav ul li a, nav .submenu li a {
 }
 
 .preview-container {
-    overflow: auto; /* Enable scrolling if content overflows */
+    height: 500px;
+    position: relative;
+    z-index: 10;
     padding: 20px;
-    max-height: 200vh; /* Set a maximum height */
-    flex-grow: 1; /* Allows flexible growth of the container */
+    flex-grow: 1; /* Allows the preview container to grow and occupy available space */
+    padding: 20px;
 }
 
 .table-container, .preview-container {
-    overflow: auto;
     flex: 1; /* Each container takes up equal space */
     box-sizing: border-box;
     padding: 20px;
@@ -152,15 +155,7 @@ nav ul li a, nav .submenu li a {
 
 .table-container {
     margin: auto;
-    padding: 20px;
-}
-
-.preview-container {
-    position: relative;
-    z-index: 10;
-    padding: 20px;
-    flex-grow: 1; /* Allows the preview container to grow and occupy available space */
-    overflow: auto; /* Enable scrolling if content overflows */
+    height: 500px;
     padding: 20px;
 }
 
