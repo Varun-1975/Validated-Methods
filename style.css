@@ -123,9 +123,13 @@ nav ul li a, nav .submenu li a {
     width: 100%;
 }
 
+.table-area {
+    width: 100%;
+}
+
 .table-area, .preview-area {
     overflow: auto;
-    max-height: 600px; /* Adjust this value as needed */
+    max-height: 100vh; /* Adjust this value as needed */
     flex: 1;
     box-sizing: border-box;
     display: flex;
@@ -138,6 +142,7 @@ nav ul li a, nav .submenu li a {
 }
 
 .preview-container {
+    height: 100%;
     position: relative;
     z-index: 10;
     padding: 20px;
@@ -158,8 +163,8 @@ nav ul li a, nav .submenu li a {
     padding: 20px;
 }
 
-.preview-content {
-    height: 100%; /* Set height to fill the preview container */
+.preview-area.active, .table-area.active {
+  width: 50%;
 }
 
 /* Adjust the height of table cells */
@@ -276,13 +281,7 @@ th {
     text-decoration: none; /* Removing underline from the link */
 }
 
-.preview-area.active, .table-area.active {
-  width: 50%;
-}
 
-.table-area {
-  width: 100%;
-}
 
 footer {
     background-color: #2d3e50; /* Dark blue background for the footer */
