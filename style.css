@@ -120,13 +120,15 @@ nav ul li a, nav .submenu li a {
 
 .content-area {
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: row; /* Adjust direction as needed */
+    width: 100%;
 }
 
 .table-area, .preview-area {
+    flex: 1; /* Allows each area to grow */
     overflow: auto;
+    transition: flex 0.3s ease; /* Smooth transition for resizing */
     max-height: 80vh; /* Adjust this value as needed */
-    flex: 1;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -138,6 +140,8 @@ nav ul li a, nav .submenu li a {
 
 .preview-area {
     display: none;
+    width: 0; /* Initially no width */
+    flex: 0; /* Do not grow or shrink */
 }
 
 .table-area .container-header, .preview-area .container-header {
@@ -181,7 +185,6 @@ table {
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
     text-align: left;
     height: 10px;
 }
