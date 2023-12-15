@@ -1,4 +1,3 @@
-/* General Styles */
 html, body {
     height: 100%;
     margin: 0;
@@ -12,9 +11,13 @@ html, body {
     height: 100vh;
 }
 
-/* Header Styles */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
 header {
-    background-color: #2d3e50; /* Dark blue background */
+    background-color: #2d3e50; /* Dark blue background for the header */
     color: white;
     padding: 5px 0;
 }
@@ -22,33 +25,38 @@ header {
 .header-top {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     padding: 5px 20px;
 }
 
 .logo img {
-    width: 80px; /* Set in HTML inline styles: 110px */
+    width: 80px;
+    height: auto;
 }
 
 .company-name h1 {
     margin: 0;
+    padding: 0;
     font-size: 30px;
 }
 
 .logo, .company-name {
-    margin-right: 20px;
+    margin-right: 20px; 
 }
 
 .header-nav {
+    text-align: center;
     background-color: #6699CC;
     padding: 5px 0;
 }
 
 header nav ul {
     list-style: none;
-    margin: 0;
     padding: 0;
-    display: flex;
+    margin: 0;
+    display: inline-flex;
     justify-content: center;
+    width: 100%;
 }
 
 header nav ul li {
@@ -58,57 +66,119 @@ header nav ul li {
 header nav ul li a {
     color: white;
     text-decoration: none;
-    transition: color 0.3s;
 }
 
 header nav ul li a:hover {
     color: #000;
 }
 
-/* Dropdown Menu Styles */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    position: relative;
+}
+
 nav .submenu {
     display: none;
+    z-index: 20;
     position: absolute;
     background-color: #90BFCA;
-    border: 1px solid #333;
+    border: 1px solid #333; 
     min-width: 200px;
-    z-index: 20;
+    white-space: nowrap;
+}
+
+nav .submenu li {
+    padding: 5px 10px;
+    clear: both;
+}
+
+nav .submenu li a {
+    color: white;
 }
 
 nav li:hover > .submenu {
     display: block;
 }
 
-/* Content Area Styles */
+nav .submenu ul {
+    top: 0;
+    left: 100%;
+}
+
+nav .submenu li a:hover {
+    color: #000;
+}
+
+nav ul li a, nav .submenu li a {
+    transition: color 0.3s;
+}
+
 .content-area {
     display: flex;
     flex-wrap: nowrap;
 }
 
 .table-area, .preview-area {
-    flex: 1;
-    display: none; /* Both initially hidden, shown by JS */
     overflow: auto;
-    max-height: 80vh;
+    max-height: 80vh; /* Adjust this value as needed */
+    flex: 1;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
     height: 100%;
 }
 
-.active {
-    display: flex; /* Display when active */
+.table-area {
+    width: 100%;
+}
+
+.preview-area {
+    display: none;
+    height: 100%;
+}
+
+.table-area .container-header, .preview-area .container-header {
+    text-align: center;
+    margin: 20px 0 20px; /* Space below the header */
 }
 
 .table-container, .preview-container {
-    flex: 1;
+    flex: 1; /* Each container takes up equal space */
+    box-sizing: border-box;
     padding: 20px;
     background-color: #e3eef9;
-    overflow: auto;
     height: 100%;
 }
 
-/* Table Styles */
+.preview-container {
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+    max-height: 80vh;
+    overflow: auto;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.table-container {
+    margin: auto;
+    height: 600px;
+    padding: 20px;
+}
+
+.preview-area.active, .table-area.active {
+    flex: 1;
+    width: 50%;
+    display: block;
+}
+
 table {
-    max-width: 100%;
+    max-width: 100%; /* Prevent the table from exceeding its container */
     margin: auto;
     border-collapse: collapse;
 }
@@ -117,7 +187,7 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
-    height: 20px;
+    height: 10px;
 }
 
 th {
@@ -125,54 +195,127 @@ th {
     color: white;
 }
 
-.column-2, .column-3 {
-    max-width: 150px;
-    word-wrap: break-word;
+.table-title {
+    text-align: center; /* Center the text for the title cell */
 }
 
-/* Button Styles */
-.view-button, .close-preview {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    color: white;
+.data-table td:first-child, .data-table th:first-child {
+    width: 350px; /* Set the desired width here */
+    font-weight: bold; /* Ensures all first column cells are bold */
+}
+
+.data-table img {
+    display: block;
+    margin: auto;
+    width: 400px; /* Match the width set in JavaScript */
+    height: auto;
+}
+
+.column-2, .column-3 {
+    max-width: 150px; /* Adjust the max-width as needed */
+    word-wrap: break-word; /* Enable word wrapping */
 }
 
 .view-button {
-    background-color: #f0f0f0;
-    color: black;
     position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f0f0f0; /* Optional: Background color for the button */
+    border: 1px solid #ccc; /* Optional: Border for the button */
 }
 
 .close-preview {
-    background-color: #f44336;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background-color: #f44336; /* or any color of your choice */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-/* Footer Styles */
+@media screen and (max-width: 600px) {
+    th, td {
+        width: 100%; /* Each column takes full width on small screens */
+        display: block; /* Stack the cells vertically */
+    }
+
+    .preview-container {
+    overflow: auto; /* Enable scrolling if content overflows */
+    padding: 20px;
+    max-height: 100vh; /* Set a maximum height */
+    flex-grow: 1; /* Allows flexible growth of the container */
+    }
+}
+
+/* Centering the button container */
+.button-container {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center; /* Centers the button vertically (if needed) */
+    height: 100%; /* You can adjust this as per your layout */
+}
+
+/* Style for the download button */
+.download-button {
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.download-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.download-button a {
+    color: white; /* Ensuring the link inside the button is also white */
+    text-decoration: none; /* Removing underline from the link */
+}
+
+
+
 footer {
-    background-color: #2d3e50; /* Dark blue background */
+    background-color: #2d3e50; /* Dark blue background for the footer */
     color: white;
     text-align: center;
     padding: 1px 0;
     font-size: 14px;
 }
 
-/* Responsive Styles */
-@media screen and (max-width: 600px) {
-    th, td {
-        display: block;
-        width: 100%;
-    }
+.footer-contact, .footer-copy {
+    text-align: center;
+}
 
-    .preview-container {
-        max-height: 100vh;
-    }
+#data-container {
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+    background-color: #e3eef9; /* Light blue background for the container */
+    border-radius: 10px;
+}
+
+.view-button {
+    position: absolute;
+    bottom: 10px; /* Position at the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f0f0f0; /* Optional: Background color for the button */
+    border: 1px solid #ccc; /* Optional: Border for the button */
 }
