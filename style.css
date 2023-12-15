@@ -143,6 +143,7 @@ nav ul li a, nav .submenu li a {
 }
 
 .table-container, .preview-container {
+    overflow: auto;
     flex: 1; /* Each container takes up equal space */
     box-sizing: border-box;
     padding: 20px;
@@ -165,6 +166,11 @@ nav ul li a, nav .submenu li a {
 
 .preview-content {
     height: 100%; /* Set height to fill the preview container */
+}
+
+/* Adjust the height of table cells */
+.table-container td {
+  height: 30px;
 }
 
 table {
@@ -218,6 +224,18 @@ th {
     border: 1px solid #ccc; /* Optional: Border for the button */
 }
 
+#close-preview {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  background-color: #f44336; /* or any color of your choice */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 600px) {
     th, td {
         width: 100%; /* Each column takes full width on small screens */
@@ -262,6 +280,14 @@ th {
 .download-button a {
     color: white; /* Ensuring the link inside the button is also white */
     text-decoration: none; /* Removing underline from the link */
+}
+
+.preview-area.active, .table-area.active {
+  width: 50%;
+}
+
+.table-area {
+  width: 100%;
 }
 
 footer {
