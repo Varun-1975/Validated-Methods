@@ -123,15 +123,21 @@ nav ul li a, nav .submenu li a {
     width: 100%;
 }
 
+.table-area, .preview-area {
+    overflow: auto;
+    max-height: 80vh; /* Adjust this value as needed */
+    flex: 1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
 .table-area {
     width: 100%;
 }
 
-.table-area, .preview-area {
-    overflow: auto;
-    max-height: 80vh; /* Adjust this value as needed */
-    box-sizing: border-box;
-    display: flex;
+.preview-area {
+    display: none;
 }
 
 .table-area .container-header, .preview-area .container-header {
@@ -139,18 +145,19 @@ nav ul li a, nav .submenu li a {
     margin: 20px 0 20px; /* Space below the header */
 }
 
-.preview-container {
-    position: relative;
-    z-index: 10;
-    padding: 20px;
-    height: 300vh;
-}
-
 .table-container, .preview-container {
     flex: 1; /* Each container takes up equal space */
     box-sizing: border-box;
     padding: 20px;
     background-color: #e3eef9;
+}
+
+.preview-container {
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+    height: 300px;
+    overflow: auto;
 }
 
 .table-container {
@@ -161,11 +168,7 @@ nav ul li a, nav .submenu li a {
 
 .preview-area.active, .table-area.active {
     width: 50%;
-}
-
-/* Adjust the height of table cells */
-.table-container td {
-  height: 10px;
+    display: block;
 }
 
 table {
@@ -178,7 +181,7 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
-    text-size: 10px;
+    height: 10px;
 }
 
 th {
