@@ -96,22 +96,35 @@ function openPreviewWindow(url) {
     const previewContainer = document.getElementById('preview-container');
     const encodedUrl = encodeURIComponent(url);
 
-    // Adjust widths of table and preview areas
-    document.querySelector('.table-area').style.width = '50%';
-    document.querySelector('.preview-area').style.width = '50%';
-    document.querySelector('.preview-area').style.display = 'block';
-
     previewContainer.innerHTML = `
         <div class="preview-content">
             <iframe src="${url}" width="100%" height="100%"></iframe>
             <button class="view-button" onclick="viewButtonClicked('${encodedUrl}')">View in New Tab</button>
             <button id="close-preview" class="close-preview" onclick="closePreviewWindow()">Close</button>
         </div>`;
+
+    // Adjust styles for preview area
+    const previewArea = document.querySelector('.preview-area');
+    previewArea.style.display = 'block';
+    previewArea.style.width = '50%'; // Adjust as needed
+    previewArea.style.flex = '1';
+
+    // Adjust styles for table area
+    const tableArea = document.querySelector('.table-area');
+    tableArea.style.flex = '1';
 }
 
 function closePreviewWindow() {
-    document.querySelector('.table-area').style.width = '100%';
-    document.querySelector('.preview-area').style.display = 'none';
+
+    // Adjust styles to hide preview area
+    const previewArea = document.querySelector('.preview-area');
+    previewArea.style.display = 'none';
+    previewArea.style.width = '0';
+    previewArea.style.flex = '0';
+
+    // Reset table area styles
+    const tableArea = document.querySelector('.table-area');
+    tableArea.style.flex = '1';
 }
 
 function viewButtonClicked(encodedUrl) {
