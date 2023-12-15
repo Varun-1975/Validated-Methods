@@ -64,8 +64,6 @@ async function loadTableFromSheet(url) {
                 previewLink.addEventListener('click', function(event) {
                     event.preventDefault();
                     openPreviewWindow(cell);
-                    // Scroll to the top of the page
-                    window.scrollTo(0, 0);
                 });
                 td.appendChild(previewLink);
             } else {
@@ -96,26 +94,29 @@ function parseTSV(tsvData) {
 
 function openPreviewWindow(url) {
     const previewContainer = document.getElementById('preview-container');
-    const encodedUrl = encodeURIComponent(url); // Encode the URL
+    const encodedUrl = encodeURIComponent(url);
+
+    // Adjust widths of table and preview areas
+    document.querySelector('.table-area').style.width = '50%';
+    document.querySelector('.preview-area').style.width = '50%';
+    document.querySelector('.preview-area').style.display = 'block';
 
     previewContainer.innerHTML = `
         <div class="preview-content">
             <iframe src="${url}" width="100%" height="100%"></iframe>
             <button class="view-button" onclick="viewButtonClicked('${encodedUrl}')">View in New Tab</button>
+            <button id="close-preview" class="close-preview" onclick="closePreviewWindow()">Close</button>
         </div>`;
+}
+
+function closePreviewWindow() {
+    document.querySelector('.table-area').style.width = '100%';
+    document.querySelector('.preview-area').style.display = 'none';
 }
 
 function viewButtonClicked(encodedUrl) {
     const url = decodeURIComponent(encodedUrl); // Decode the URL
     window.open(url, '_blank'); // Open the URL in a new tab
-}
-
-
-function closePreviewWindow() {
-    const modal = document.getElementById('preview-modal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
 }
 
 function isValidUrl(string) {
