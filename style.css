@@ -123,6 +123,7 @@ nav .submenu {
     background-color: #90BFCA;
     border: 1px solid #333; 
     min-width: 200px;
+    width: max-content;
     white-space: nowrap;
 }
 
