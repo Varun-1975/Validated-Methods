@@ -157,6 +157,7 @@ nav ul li a, nav .submenu li a {
     display: flex;
     flex-wrap: nowrap;
     height: 100%
+    padding: 0 0 20px;
 }
 
 .table-area, .preview-area {
