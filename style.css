@@ -16,7 +16,7 @@ html, body {
 .vertical-menu {
     width: 200px; /* Set the width of the menu */
     position: absolute; /* Position over the background */
-    top: 50%; /* Center vertically */
+    top: 25%; /* Center vertically */
     left: 10%;
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
