@@ -5,6 +5,39 @@ html, body {
     background-color: #e3eef9;
 }
 
+.background-image {
+    background-image: url('Picture2.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    position: relative;
+}
+
+.vertical-menu {
+    width: 200px; /* Set the width of the menu */
+    position: absolute; /* Position over the background */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.vertical-menu a {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.vertical-menu a.active {
+    background-color: #04AA6D; /* Active item color */
+}
+
+.vertical-menu a:hover {
+    background-color: #666;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
