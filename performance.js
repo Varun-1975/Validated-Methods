@@ -7,7 +7,7 @@ async function fetchTSVData(url) {
 
 // Helper function to check if a string is an image link
 function isImageLink(str) {
-    return str.startsWith('https://cdn.discordapp.com/attachments/');
+    return str.startsWith('https://go.drugbank.com/structures/');
 }
 
 // Function to create a table with the TSV data
