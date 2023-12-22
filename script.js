@@ -142,6 +142,17 @@ function createTable(data) {
                 img.style.maxWidth = '100%';
                 img.style.height = 'auto';
                 td.appendChild(img);
+	    }
+            //Open in new Tab
+	    if (rowIndex === 0 && newTabOpen(cell)) {
+                let openLink = document.createElement('a');
+                openLink.href = "#";
+                openLink.textContent = "View in New Tab";
+                openLink.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    openNewTab(cell);
+                });
+                td.appendChild(previewLink);
             } else {
                 td.textContent = cell;
                 // Make the first column bold
@@ -168,6 +179,10 @@ function createTable(data) {
     });
 
     return table;
+}
+
+function openNewTab(url) {
+    window.open(url, '_blank'); // Open the URL in a new tab
 }
 
 // Function to apply styles to a cell
