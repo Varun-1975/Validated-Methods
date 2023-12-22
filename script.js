@@ -122,23 +122,8 @@ function closePreviewWindow() {
     // Reset table area styles
     const tableArea = document.querySelector('.table-area');
     tableArea.style.flex = '1';
-}
 
-function viewButtonClicked(encodedUrl) {
-    const url = decodeURIComponent(encodedUrl); // Decode the URL
-    window.open(url, '_blank'); // Open the URL in a new tab
-}
-
-function isValidUrl(string) {
-    try {
-        new URL(string);
-        return true;
-    } catch (_) {
-        return false;
-    }
-}
-
-// Your new functions for fetching TSV data and creating tables
+    // Your new functions for fetching TSV data and creating tables
 async function fetchTSVData(url) {
     // ... (Your code to fetch TSV data)
     const response = await fetch(url);
@@ -234,6 +219,21 @@ function initializeTable() {
 
 function isImageLink(str) {
     return str.startsWith('https://go.drugbank.com/structures/');
+}
+}
+
+function viewButtonClicked(encodedUrl) {
+    const url = decodeURIComponent(encodedUrl); // Decode the URL
+    window.open(url, '_blank'); // Open the URL in a new tab
+}
+
+function isValidUrl(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (_) {
+        return false;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', initializeTable);
