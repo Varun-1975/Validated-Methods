@@ -228,4 +228,8 @@ function initializeTable() {
     });
 }
 
+function isImageLink(str) {
+    return str.startsWith('https://go.drugbank.com/structures/');
+}
+
 document.addEventListener('DOMContentLoaded', initializeTable);
