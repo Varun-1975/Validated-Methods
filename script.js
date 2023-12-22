@@ -181,10 +181,6 @@ function createTable(data) {
     return table;
 }
 
-function openNewTab(url) {
-    window.open(url, '_blank'); // Open the URL in a new tab
-}
-
 // Function to apply styles to a cell
 function applyStylesToCell(cell) {
     cell.style.textAlign = 'center'; // Center the text
@@ -203,6 +199,9 @@ function initializeTable() {
     });
 }
 
+function openNewTab(url) {
+    window.open(url, '_blank'); // Open the URL in a new tab
+}
 
 function openPreviewWindow(url) {
     const previewContainer = document.getElementById('preview-container');
