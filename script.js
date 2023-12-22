@@ -103,6 +103,10 @@ function isImageLink(str) {
     return str.startsWith('https://go.drugbank.com/structures/');
 }
 
+function newTabOpen(str){
+    return str.startsWith('https://raptim-research.github.io/Validated-Methods/');
+}
+
 // Function to create a table with the TSV data
 function createTable(data) {
     const table = document.createElement('table');
