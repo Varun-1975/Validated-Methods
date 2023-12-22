@@ -1,3 +1,4 @@
+//new.js
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('data-container');
     if (!container) {
@@ -14,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function loadTableFromSheet(url) {
-    // ... (Your existing code for loading the table from the sheet)
     const response = await fetch(url);
     const tsvData = await response.text();
     const data = parseTSV(tsvData);
@@ -25,9 +25,11 @@ async function loadTableFromSheet(url) {
         return;
     }
 
-    container.innerHTML = ''; // Clear existing data
+    // Clear existing data
+    container.innerHTML = '';
 
-     const table = document.createElement('table');
+    // Create table elements
+    const table = document.createElement('table');
     const tableHead = document.createElement('thead');
     const tableBody = document.createElement('tbody');
     table.appendChild(tableHead);
@@ -86,9 +88,10 @@ async function loadTableFromSheet(url) {
 }
 
 function parseTSV(tsvData) {
-    // ... (Your existing code for parsing TSV data)
+    // Split the TSV data into lines and then cells using tab as the delimiter
     return tsvData.split('\n').map(row => row.split('\t'));
 }
+
 
 function openPreviewWindow(url) {
     const previewContainer = document.getElementById('preview-container');
@@ -96,43 +99,22 @@ function openPreviewWindow(url) {
 
     previewContainer.innerHTML = `
         <div class="preview-content">
-            <iframe src="${url}" width="100%" height="100%"></iframe>
-            <button class="view-button" onclick="viewButtonClicked('${encodedUrl}')">View in New Tab</button>
-            <button id="close-preview" class="close-preview" onclick="closePreviewWindow()">Close</button>
-        </div>`;
-
-    // Adjust styles for preview area
-    const previewArea = document.querySelector('.preview-area');
-    previewArea.style.display = 'block';
-    previewArea.style.width = '50%'; // Adjust as needed
-    previewArea.style.flex = '1';
-
-    // Adjust styles for table area
-    const tableArea = document.querySelector('.table-area');
-    tableArea.style.flex = '1';
-}
-
-function closePreviewWindow() {
-    // Adjust styles to hide preview area
-    const previewArea = document.querySelector('.preview-area');
-    previewArea.style.display = 'none';
-    previewArea.style.width = '0';
-    previewArea.style.flex = '0';
-
-    // Reset table area styles
-    const tableArea = document.querySelector('.table-area');
-    tableArea.style.flex = '1';
-
-    // Your new functions for fetching TSV data and creating tables
+            <iframe width="100%" height="100%">
+		//performance.js
+// Function to fetch TSV data from the Google Sheet
 async function fetchTSVData(url) {
-    // ... (Your code to fetch TSV data)
     const response = await fetch(url);
     const text = await response.text();
     return text.split('\n').map(row => row.split('\t'));
 }
 
+// Helper function to check if a string is an image link
+function isImageLink(str) {
+    return str.startsWith('https://go.drugbank.com/structures/');
+}
+
+// Function to create a table with the TSV data
 function createTable(data) {
-    // ... (Your code to create a table)
     const table = document.createElement('table');
     table.className = 'data-table'; // Add a class for CSS styling
 
@@ -198,15 +180,14 @@ function createTable(data) {
     return table;
 }
 
+// Function to apply styles to a cell
 function applyStylesToCell(cell) {
-    // ... (Your code to apply styles to a cell)
     cell.style.textAlign = 'center'; // Center the text
     cell.style.fontWeight = 'bold';   // Make the text bold
 }
-
 // Function to initialize the data fetching and table creation
 function initializeTable() {
-    // ... (Your code for initializing the table)
+    // Retrieve the URL from the data-sheet-url attribute of the data-container element
     const container = document.getElementById('data-container');
     const tsvUrl = container.getAttribute('data-sheet-url');
 
@@ -217,12 +198,35 @@ function initializeTable() {
     });
 }
 
-function isImageLink(str) {
-    return str.startsWith('https://go.drugbank.com/structures/');
+// Event listener to run the initializeTable function after the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initializeTable);
+	    </iframe>
+            <button class="view-button" onclick="viewButtonClicked('${encodedUrl}')">View in New Tab</button>
+            <button id="close-preview" class="close-preview" onclick="closePreviewWindow()">Close</button>
+        </div>`;
+
+    // Adjust styles for preview area
+    const previewArea = document.querySelector('.preview-area');
+    previewArea.style.display = 'block';
+    previewArea.style.width = '50%'; // Adjust as needed
+    previewArea.style.flex = '1';
+
+    // Adjust styles for table area
+    const tableArea = document.querySelector('.table-area');
+    tableArea.style.flex = '1';
 }
 
-document.addEventListener('DOMContentLoaded', initializeTable);
+function closePreviewWindow() {
 
+    // Adjust styles to hide preview area
+    const previewArea = document.querySelector('.preview-area');
+    previewArea.style.display = 'none';
+    previewArea.style.width = '0';
+    previewArea.style.flex = '0';
+
+    // Reset table area styles
+    const tableArea = document.querySelector('.table-area');
+    tableArea.style.flex = '1';
 }
 
 function viewButtonClicked(encodedUrl) {
