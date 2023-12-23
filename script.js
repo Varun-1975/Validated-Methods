@@ -211,6 +211,11 @@ function openPreviewWindow(url) {
     const tableArea = document.querySelector('.table-area');
     tableArea.style.flex = '1';
 
+    previewContainer.innerHTML = `
+        <div class="preview-content">
+            <button id="close-preview" class="close-preview" onclick="closePreviewWindow()">Close</button>
+        </div>`;
+
 }
 
 function closePreviewWindow() {
