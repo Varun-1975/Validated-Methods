@@ -214,10 +214,6 @@ nav ul li a, nav .submenu li a {
     display: block;
 }
 
-.preview-content {
-    height: 100%
-}
-
 table {
     max-width: 100%; /* Prevent the table from exceeding its container */
     margin: auto;
