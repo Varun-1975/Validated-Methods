@@ -1,4 +1,3 @@
-//new.js
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('data-container');
     if (!container) {
@@ -239,3 +238,26 @@ function isValidUrl(string) {
         return false;
     }
 }
+
+function searchTable() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("data-container").getElementsByTagName('table')[0]; // assuming the first table in data-container is your target table
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) { // Start from 1 to skip header row
+        td = tr[i].getElementsByTagName("td")[0]; // Modify the index as per your table's searchable column
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }       
+    }
+}
+
+// Attach event listener to the search input
+document.getElementById('searchInput').addEventListener('keyup', searchTable);
