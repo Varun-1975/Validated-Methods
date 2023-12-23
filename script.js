@@ -243,19 +243,22 @@ function searchTable() {
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();
-    table = document.getElementById("data-container").getElementsByTagName('table')[0]; // assuming the first table in data-container is your target table
+    table = document.getElementById("data-container").getElementsByTagName('table')[0]; // Target the first table in data-container
     tr = table.getElementsByTagName("tr");
 
-    for (i = 1; i < tr.length; i++) { // Start from 1 to skip header row
-        td = tr[i].getElementsByTagName("td")[0]; // Modify the index as per your table's searchable column
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
+    for (i = 1; i < tr.length; i++) { // Start from 1 to skip the header row
+        tr[i].style.display = "none";  // Hide all rows initially
+        td = tr[i].getElementsByTagName("td"); // Get all cells in the row
+
+        for (var j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = ""; // Show row if any cell matches
+                    break; // Stop checking other cells in the same row
+                }
             }
-        }       
+        }
     }
 }
 
