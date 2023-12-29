@@ -6,7 +6,7 @@ html, body {
 }
 
 .background-image {
-    background-image: url('Background3.jpg');
+    background-image: url('Background5.jpg');
     background-size: 100%;
     background-position: center;
     height: 100%;
@@ -370,7 +370,7 @@ footer {
   text-align: center;
   line-height: 200px; /* Same as height to vertically center the text */
   font-size: 40px; /* Adjust as needed */
-  margin: 20px auto; /* Centers the circle */
+  margin: 100px auto; /* Centers the circle */
 }
 
 .summary-rectangle {
