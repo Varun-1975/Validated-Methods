@@ -6,7 +6,7 @@ html, body {
 }
 
 .background-image {
-    background-image: url('Background2.jpg');
+    background-image: url('Background3.jpg');
     background-size: 100%;
     background-position: center;
     height: 100%;
@@ -247,8 +247,13 @@ th {
     height: auto;
 }
 
-.column-2, .column-3 {
-    max-width: 150px; /* Adjust the max-width as needed */
+.column-2 {
+    max-width: 200px; /* Adjust the max-width as needed */
+    word-wrap: break-word; /* Enable word wrapping */
+}
+
+.column-3 {
+    width: auto; /* Adjust the max-width as needed */
     word-wrap: break-word; /* Enable word wrapping */
 }
 
@@ -354,4 +359,28 @@ footer {
     cursor: pointer;
     background-color: #f0f0f0; /* Optional: Background color for the button */
     border: 1px solid #ccc; /* Optional: Border for the button */
+}
+
+.title-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: black; /* Replace with your desired color */
+  color: white;
+  text-align: center;
+  line-height: 200px; /* Same as height to vertically center the text */
+  font-size: 40px; /* Adjust as needed */
+  margin: 20px auto; /* Centers the circle */
+}
+
+.summary-rectangle {
+  width: 60%; /* Adjust as needed */
+  margin: 20px auto;
+  border-radius: 25px;
+  background-color: black; /* Replace with your desired color */
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 26px; /* Adjust as needed */
+  transform: scaleY(0.6); /* Creates the curved rectangle effect */
 }
