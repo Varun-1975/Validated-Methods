@@ -92,6 +92,7 @@ async function loadTableFromSheet(url) {
     // Hide loading div
     document.getElementById('loading').style.display = 'none';
 }
+}
 
 function parseTSV(tsvData) {
     // Split the TSV data into lines and then cells using tab as the delimiter
