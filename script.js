@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function loadTableFromSheet(url) {
-    async function loadTableFromSheet(url) {
     // Show loading div
     document.getElementById('loading').style.display = 'block';
 
@@ -91,7 +90,6 @@ async function loadTableFromSheet(url) {
 
     // Hide loading div
     document.getElementById('loading').style.display = 'none';
-}
 }
 
 function parseTSV(tsvData) {
