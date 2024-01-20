@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 async function loadTableFromSheet(url) {
+    async function loadTableFromSheet(url) {
+    // Show loading div
+    document.getElementById('loading').style.display = 'block';
+
     const response = await fetch(url);
     const tsvData = await response.text();
     const data = parseTSV(tsvData);
@@ -84,6 +88,9 @@ async function loadTableFromSheet(url) {
 });
     // Append the table to the container
     container.appendChild(table);
+
+    // Hide loading div
+    document.getElementById('loading').style.display = 'none';
 }
 
 function parseTSV(tsvData) {
