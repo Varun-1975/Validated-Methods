@@ -31,25 +31,47 @@ function createTable(data) {
     const table = document.createElement('table');
     table.className = 'data-table';
 
+    // Create header row
     const headerRow = document.createElement('tr');
     data[0].forEach(header => {
         const th = document.createElement('th');
         th.textContent = header;
-        th.style.textAlign = 'center';
-        th.style.fontWeight = 'bold';
         headerRow.appendChild(th);
     });
     fragment.appendChild(headerRow);
 
+    // Initialize an array to keep track of the last non-empty cell for each column
+    let lastNonEmptyCell = Array(data[0].length).fill(null);
+
+    // Create table body
     data.slice(1).forEach(row => {
         const tr = document.createElement('tr');
         row.forEach((cell, cellIndex) => {
-            const td = document.createElement('td');
-            td.textContent = cell;
-            if (cellIndex === 0) {
-                td.style.fontWeight = 'bold';
+            if (cell.trim() === '' && lastNonEmptyCell[cellIndex] != null) {
+                lastNonEmptyCell[cellIndex].rowSpan += 1;
+            } else {
+                const td = document.createElement('td');
+
+                if (cellIndex === 3 && isValidUrl(cell)) {
+                    const previewLink = document.createElement('a');
+                    previewLink.href = "#";
+                    previewLink.textContent = "Preview";
+                    previewLink.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        openPreviewWindow(cell);
+                    });
+                    td.appendChild(previewLink);
+                } else {
+                    td.textContent = cell;
+                }
+
+                if (cellIndex === 1 || cellIndex === 2) {
+                    td.classList.add(`column-${cellIndex + 1}`);
+                }
+
+                tr.appendChild(td);
+                lastNonEmptyCell[cellIndex] = td;
             }
-            tr.appendChild(td);
         });
         fragment.appendChild(tr);
     });
@@ -64,9 +86,8 @@ function openPreviewWindow(url) {
 
     fetchTSVData(url).then(data => {
         previewContainer.appendChild(createTable(data));
+        adjustPreviewStyles(true);
     });
-
-    adjustPreviewStyles(true);
 }
 
 function closePreviewWindow() {
