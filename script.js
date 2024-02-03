@@ -22,9 +22,21 @@ function createTable(data) {
 
     data.slice(1).forEach(row => {
         const tr = document.createElement('tr');
-        row.forEach(cell => {
+        row.forEach((cell, index) => {
             const td = document.createElement('td');
-            td.textContent = cell;
+
+            if (index === 3 && isValidUrl(cell)) {
+                // Create a 'Preview' link for the 4th column
+                const previewLink = document.createElement('a');
+                previewLink.href = "#";
+                previewLink.textContent = "Preview";
+                previewLink.classList.add('preview-link');
+                previewLink.setAttribute('data-url', cell);
+                td.appendChild(previewLink);
+            } else {
+                td.textContent = cell;
+            }
+
             tr.appendChild(td);
         });
         table.appendChild(tr);
@@ -52,7 +64,17 @@ async function initializeTable() {
     container.appendChild(table);
 }
 
-function openPreviewWindow(url) {
+document.addEventListener('click', event => {
+    if (event.target.matches('.preview-link')) {
+        event.preventDefault();
+        const url = event.target.getAttribute('data-url');
+        if (isValidUrl(url)) {
+            openPreviewWindow(url);
+        }
+    }
+});
+
+async function openPreviewWindow(url) {
     // Lazy load preview window content
     setTimeout(async () => {
         const previewContainer = document.getElementById('preview-container');
@@ -97,14 +119,3 @@ function isValidUrl(string) {
         return false;
     }
 }
-
-// Add event listener for the preview links (using event delegation)
-document.addEventListener('click', event => {
-    if (event.target.matches('.preview-link')) {
-        event.preventDefault();
-        const url = event.target.getAttribute('data-url');
-        if (isValidUrl(url)) {
-            openPreviewWindow(url);
-        }
-    }
-});
