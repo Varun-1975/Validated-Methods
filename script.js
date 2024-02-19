@@ -219,7 +219,7 @@ function openPreviewWindow(url) {
 
     previewContainer.innerHTML = `
         <div class="preview-content">
-            <button id="close-preview" class="close-preview" onclick="closePreviewWindow()">Close</button>
+            <button type="button" id="close-preview" class="close-preview" onclick="closePreviewWindow()">Close</button>
         </div>`;
 
 }
