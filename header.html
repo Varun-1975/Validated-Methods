@@ -1,45 +1,36 @@
 <header>
-        <div class="header-top">
-          <div class="logo">
-            <img src="Raptim Logo.png" alt="Raptim Research" style="width: 110px; height: auto;">
-          </div>
-          <div class="company-name">
-            <h1><a href="index.html" style="text-decoration: none; color: white;">Raptim Research Pvt. Ltd.</a></h1>
-          </div>
-        </div>
-        <nav class="header-nav">
-            <ul>
-            <li>
-              <a>Assay Library</a>
-              <ul class="submenu">
-                <li>
-                  <a href="bioequivalence_bioavailability.html">Bioequivalence/Bioavailability</a>
-                </li>
-                <li>
-                  <a>In-Vitro Methods</a>
-                  <ul class="submenu">
-                    <li>
-                      <a href="in_vitro methods_bcs.html">In-Vitro Methods – BCS</a>
-                    </li>
-                    <li>
-                      <a href="in_vitro methods_binding.html">In-Vitro Methods – Binding</a>
-                    </li>
-                    <li>
-                      <a href="in_vitro methods_caco_2_model.html">Validation of Caco-2 Model</a>
-                    </li>
-                    <li>
-                      <a href="in_vitro release test methods.html">In-Vitro Release Test (IVRT) Methods</a>
-                    </li>
-                    <li>
-                      <a href="in_vitro permeation test methods.html">In-Vitro Permeation Test (IVPT) Methods</a>
-                    </li>
-                    <li>
-                      <a href="in_vitro_nasogastric tube studies methods.html">In-Vitro Feeding Tube (Nasogastric and Gastrointestinal) Methods</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
+    <div class="brand-container bg-primary">
+        <a href="index.html" class="navbar-brand">
+            <img src="Raptim logo.jpg" alt="Raptim Research Logo" style="width: 100px;">
+            <span>Raptim Research</span>
+        </a>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="bioequivalence_bioavailability.html">Bioequivalence/Bioavailability</a>
             </li>
-          </ul>
-        </nav>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    In-Vitro Methods
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="in_vitro methods_bcs.html">In-Vitro Methods – BCS</a>
+                    <a class="dropdown-item" href="in_vitro methods_binding.html">In-Vitro Methods – Binding</a>
+                    <a class="dropdown-item" href="in_vitro methods_caco_2_model.html">Validation of Caco-2 Model</a>
+                    <a class="dropdown-item" href="in_vitro release test methods.html">In-Vitro Release Test (IVRT) Methods</a>
+                    <a class="dropdown-item" href="in_vitro permeation test methods.html">In-Vitro Permeation Test (IVPT) Methods</a>
+                    <a class="dropdown-item" href="in_vitro_nasogastric tube studies methods.html">In-Vitro Feeding Tube Methods</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    </nav>
 </header>
